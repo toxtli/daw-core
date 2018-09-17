@@ -9,7 +9,7 @@ DAW.prototype.closeComposition = function() {
 				prom.then( this.composition.unload );
 			}
 		} else {
-			this.composition.unload()
+			this.composition.unload();
 		}
 		this.cmp = null;
 	}

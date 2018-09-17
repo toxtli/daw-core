@@ -43,6 +43,12 @@ class Composition {
 			this._cmp = null;
 		}
 	}
+	save() {
+		if ( this._cmp && this.needSave ) {
+			this.needSave = false;
+			return true;
+		}
+	}
 
 	// controls
 	// ........................................................................
