@@ -1,6 +1,6 @@
 "use strict";
 
-class Composition {
+DAW.Composition = class {
 	constructor() {
 		this._cmp = null;
 		this.loaded =
@@ -10,21 +10,10 @@ class Composition {
 		this._sched = new gswaScheduler();
 	}
 
-	// load
+	// un/load
 	// ........................................................................
 	load( cmp ) {
 		this.unload();
-		return this._load( cmp );
-	}
-	loadByURL( url ) {
-		return fetch( url )
-			.then( res => res.json() )
-			.then( cmp => this.load( cmp ) );
-	}
-	loadByFile( file ) {
-		// ...
-	}
-	_load( cmp ) {
 		return new Promise( ( res, rej ) => {
 			res();
 		} ).then( () => {
@@ -33,9 +22,6 @@ class Composition {
 			this.needSave = false;
 		} );
 	}
-
-	// unload
-	// ........................................................................
 	unload() {
 		if ( this.loaded ) {
 			this.loaded =
@@ -76,4 +62,4 @@ class Composition {
 			this.currentTime = 0;
 		}
 	}
-}
+};
