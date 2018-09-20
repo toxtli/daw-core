@@ -9,6 +9,7 @@ class DAW {
 		this.patternOpened = null;
 		this.compositions = new Map();
 		this.composition = new DAW.Composition();
+		this.history = new DAW.History();
 		this.ctx = new AudioContext();
 	}
 
