@@ -5,8 +5,8 @@ DAW.prototype.openComposition = function( id ) {
 
 	if ( cmp ) {
 		this.cmp = cmp;
-		this.call( "compositionLoading", cmp );
+		this._call( "compositionLoading", cmp );
 		this.composition.load( cmp );
-		this.call( "compositionLoaded", cmp );
+		this._call( "compositionLoaded", cmp );
 	}
 };

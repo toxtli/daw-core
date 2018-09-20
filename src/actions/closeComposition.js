@@ -3,7 +3,7 @@
 DAW.prototype.closeComposition = function() {
 	if ( this.cmp ) {
 		if ( this.composition.needSave ) {
-			const prom = this.call( "askToDiscardComposition", this.cmp );
+			const prom = this._call( "askToDiscardComposition", this.cmp );
 
 			if ( prom && prom.then ) {
 				prom.then( this.composition.unload );

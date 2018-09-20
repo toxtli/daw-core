@@ -2,6 +2,6 @@
 
 DAW.prototype.saveComposition = function() {
 	if ( this.composition.save() ) {
-		this.call( "compositionSaved", this.cmp );
+		this._call( "compositionSaved", this.cmp );
 	}
 };
