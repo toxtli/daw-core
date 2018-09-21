@@ -12,12 +12,18 @@ DAW.Composition = class {
 
 	// un/load, change, save
 	// ........................................................................
-	load( cmp ) {
-		this.unload();
+	load( cmpOri ) {
 		return new Promise( ( res, rej ) => {
-			res();
-		} ).then( () => {
-			this._cmp = DAW.deepAssign( {}, cmp );
+			const cmp = DAW.copyObject( cmpOri );
+
+			if ( this.format( cmp ) ) {
+				this.unload();
+				res( cmp );
+			} else {
+				rej();
+			}
+		} ).then( cmp => {
+			this._cmp = cmp;
 			this.loaded = true;
 			this.needSave = false;
 		} );
