@@ -1,7 +1,8 @@
 "use strict";
 
 DAW.prototype.newComposition = function() {
-	return this.composition.load( this._newComposition() )
+	return this.addComposition( this._newComposition() )
+		.then( cmp => this.composition.load( cmp ) )
 		.then( cmp => this.cmp = cmp );
 };
 
@@ -41,5 +42,5 @@ DAW.prototype._newComposition = function() {
 		tracks,
 		blocks: {},
 		keys: { 0: {} },
-	}
+	};
 };
