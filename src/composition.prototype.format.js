@@ -26,18 +26,20 @@ DAW.Composition.prototype.format = function( cmp ) {
 
 		Object.values( cmp.patterns ).forEach( pat => pat.synth = 0 );
 		cmp.synthOpened = 0;
-		cmp.synths = { "0": {
+		cmp.synths = { 0: {
 			name: "synth",
-			oscillators: { "0": { type: "sine", detune: 0, pan: 0, gain: 1 } },
+			oscillators: { 0: { type: "sine", detune: 0, pan: 0, gain: 1 } },
 		} };
 	}
 	Object.values( cmp.synths ).forEach( syn => {
 		delete syn.envelopes;
 	} );
-	Object.values( cmp.tracks ).forEach( tr => {
-		tr.name = tr.name || "";
+	Object.values( cmp.tracks ).reduce( ( order, tr ) => {
+		tr.name = typeof tr.name === "string" ? tr.name : "";
 		tr.toggle = typeof tr.toggle === "boolean" ? tr.toggle : true;
-	} );
+		tr.order = typeof tr.order === "number" ? tr.order : order;
+		return tr.order + 1;
+	}, 0 );
 	cmp.blocks = blcsObj;
 	blcsEntries.sort( sortWhen );
 	blcsEntries.forEach( ( [ id, blc ] ) => {
