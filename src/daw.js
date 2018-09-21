@@ -3,6 +3,12 @@
 class DAW {
 	constructor() {
 		this.cb = {};
+		this.env = {
+			def_bpm: 120,
+			def_nbTracks: 21,
+			def_stepsPerBeat: 4,
+			def_beatsPerMeasure: 4,
+		};
 		this.cmp =
 		this.cmpId =
 		this.synthOpened =
