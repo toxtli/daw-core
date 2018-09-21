@@ -10,14 +10,14 @@ DAW.Composition = class {
 		this._sched = new gswaScheduler();
 	}
 
-	// un/load
+	// un/load, change, save
 	// ........................................................................
 	load( cmp ) {
 		this.unload();
 		return new Promise( ( res, rej ) => {
 			res();
 		} ).then( () => {
-			this._cmp = cmp;
+			this._cmp = DAW.deepAssign( {}, cmp );
 			this.loaded = true;
 			this.needSave = false;
 		} );
