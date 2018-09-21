@@ -13,12 +13,30 @@ class DAW {
 		this.ctx = new AudioContext();
 	}
 
-	call( cbName, a, b, c, d ) {
+	initPianoroll() {
+		this.pianoroll = new DAW.Pianoroll( this.ctx );
+	}
+
+	// private:
+	_call( cbName, a, b, c, d ) {
 		const fn = this.cb[ cbName ];
 
 		return fn && fn( a, b, c, d );
 	}
-	initPianoroll() {
-		this.pianoroll = new DAW.Pianoroll( this.ctx );
+	_getObjFromComposition( collection, id ) {
+		return this._cmp ? this._cmp[ collection ][ id ] : null;
+	}
+	_error( fnName, collection, id ) {
+		return !this._cmp
+			? `DAW.${ fnName }: cmp is not defined`
+			: `DAW.${ fnName }: cmp.${ collection }[${ id }] is not defined`;
+	}
+	_getMaxIdOf( obj ) {
+		return Object.keys( obj )
+			.reduce( ( max, k ) => Math.max( max, parseInt( k ) || 0 ), 0 );
+	}
+	_createUniqueName( collection, name ) {
+		return DAW.uniqueName( name, Object.values(
+			this._cmp[ collection ] ).map( obj => obj.name ) );
 	}
 }
