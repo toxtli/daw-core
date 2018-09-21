@@ -14,7 +14,7 @@ class DAW {
 		this.synthOpened =
 		this.patternOpened = null;
 		this.compositions = new Map();
-		this.composition = new DAW.Composition();
+		this.composition = new DAW.Composition( this );
 		this.history = new DAW.History();
 		this.ctx = new AudioContext();
 	}

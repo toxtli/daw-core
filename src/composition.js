@@ -1,7 +1,8 @@
 "use strict";
 
 DAW.Composition = class {
-	constructor() {
+	constructor( daw ) {
+		this.daw = daw;
 		this.cmp = null;
 		this.loaded =
 		this.playing =
@@ -43,6 +44,9 @@ DAW.Composition = class {
 		}
 	}
 	change( obj ) {
+		const fn = this.daw.onchangeComposition;
+
+		fn && fn( obj );
 		return obj;
 	}
 
