@@ -4,9 +4,9 @@ DAW.prototype.openComposition = function( id ) {
 	const cmp = this.compositions.get( id );
 
 	if ( cmp ) {
-		this.cmp = cmp;
-		this._call( "compositionLoading", cmp );
-		this.composition.load( cmp );
-		this._call( "compositionLoaded", cmp );
+		return this.composition.load( cmp ).then( cmp => this.cmp = cmp );
+	} else {
+		console.warn( `DAW.compositions[${ id }] is ${ cmp }` );
+		return Promise.reject();
 	}
 };

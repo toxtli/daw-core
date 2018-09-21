@@ -2,7 +2,7 @@
 
 DAW.Composition = class {
 	constructor() {
-		this._cmp = null;
+		this.cmp = null;
 		this.loaded =
 		this.playing =
 		this.needSave = false;
@@ -23,20 +23,21 @@ DAW.Composition = class {
 				rej();
 			}
 		} ).then( cmp => {
-			this._cmp = cmp;
+			this.cmp = cmp;
 			this.loaded = true;
 			this.needSave = false;
+			return cmp;
 		} );
 	}
 	unload() {
 		if ( this.loaded ) {
 			this.loaded =
 			this.needSave = false;
-			this._cmp = null;
+			this.cmp = null;
 		}
 	}
 	save() {
-		if ( this._cmp && this.needSave ) {
+		if ( this.cmp && this.needSave ) {
 			this.needSave = false;
 			return true;
 		}
