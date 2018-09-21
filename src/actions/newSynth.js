@@ -7,7 +7,7 @@ DAW.prototype.newSynth = function() {
 DAW.prototype._newSynth = function() {
 	return {
 		synths: {
-			[ this._getMaxIdOf( this._cmp.synths ) ]: {
+			[ this._getMaxIdOf( this.cmp.synths ) ]: {
 				name: this._createUniqueName( "synths", "synth" ),
 				oscillators: {
 					"0": {

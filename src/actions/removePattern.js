@@ -10,7 +10,7 @@ DAW.prototype.removePattern = function( id ) {
 };
 
 DAW.prototype._removePattern = function( patId, pat ) {
-	const cmp = this._cmp,
+	const cmp = this.cmp,
 		obj = {
 			keys: { [ pat.keys ]: null },
 			patterns: { [ patId ]: null },

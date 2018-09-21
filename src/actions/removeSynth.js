@@ -10,7 +10,7 @@ DAW.prototype.removeSynth = function( id ) {
 };
 
 DAW.prototype._removeSynth = function( synthId ) {
-	const cmp = this._cmp,
+	const cmp = this.cmp,
 		keys = {},
 		blocks = {},
 		patterns = {},

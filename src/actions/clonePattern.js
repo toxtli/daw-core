@@ -10,7 +10,7 @@ DAW.prototype.clonePattern = function( id ) {
 };
 
 DAW.prototype._clonePattern = function( patId, pat ) {
-	const cmp = this._cmp,
+	const cmp = this.cmp,
 		newPat = Object.assign( {}, pat ),
 		newKeys = DAW.deepAssign( {}, cmp.keys[ pat.keys ] ),
 		newPatId = this._getMaxIdOf( cmp.patterns ),

@@ -9,8 +9,9 @@ DAW.prototype.newPattern = function( synthId ) {
 };
 
 DAW.prototype._newPattern = function( synthId ) {
-	const keysId = this._getMaxIdOf( this._cmp.keys ),
-		patId = this._getMaxIdOf( this._cmp.patterns );
+	const cmp = this.cmp,
+		keysId = this._getMaxIdOf( cmp.keys ),
+		patId = this._getMaxIdOf( cmp.patterns );
 
 	return {
 		keys: { [ keysId ]: {} },
@@ -19,7 +20,7 @@ DAW.prototype._newPattern = function( synthId ) {
 			type: "keys",
 			keys: keysId,
 			synth: synthId,
-			duration: this._cmp.beatsPerMeasure,
+			duration: cmp.beatsPerMeasure,
 		} }
 	};
 };

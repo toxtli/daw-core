@@ -24,10 +24,10 @@ class DAW {
 		return fn && fn( a, b, c, d );
 	}
 	_getObjFromComposition( collection, id ) {
-		return this._cmp ? this._cmp[ collection ][ id ] : null;
+		return this.cmp ? this.cmp[ collection ][ id ] : null;
 	}
 	_error( fnName, collection, id ) {
-		return !this._cmp
+		return !this.cmp
 			? `DAW.${ fnName }: cmp is not defined`
 			: `DAW.${ fnName }: cmp.${ collection }[${ id }] is not defined`;
 	}
@@ -37,6 +37,6 @@ class DAW {
 	}
 	_createUniqueName( collection, name ) {
 		return DAW.uniqueName( name, Object.values(
-			this._cmp[ collection ] ).map( obj => obj.name ) );
+			this.cmp[ collection ] ).map( obj => obj.name ) );
 	}
 }
