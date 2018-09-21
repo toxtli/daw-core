@@ -35,6 +35,9 @@ DAW.Composition = class {
 			return true;
 		}
 	}
+	change( obj ) {
+		return obj;
+	}
 
 	// controls
 	// ........................................................................
