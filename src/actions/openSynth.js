@@ -8,8 +8,10 @@ DAW.prototype.openSynth = function( id ) {
 			obj = { synthOpened: id };
 
 		if ( patId !== cmp.patternOpened ) {
+			this._call( "patternOpened", patId, cmp.patternOpened );
 			obj.patternOpened = patId;
 		}
+		this._call( "synthOpened", id, cmp.synthOpened );
 		this.composition.change( obj );
 	}
 };
