@@ -30,6 +30,9 @@ DAW.History = class {
 		act.index = stack.push( act );
 		this._change( act, "redo", "historyAddAction" );
 	}
+	getCurrentAction() {
+		return this._stack[ this._stackInd - 1 ];
+	}
 	goToAction( act ) {
 		let n = act.index - this._stackInd;
 
@@ -38,19 +41,19 @@ DAW.History = class {
 		} else if ( n > 0 ) {
 			while ( n-- > 0 ) { this.redo(); }
 		}
-	}
-	getCurrentAction() {
-		return this._stack[ this._stackInd - 1 ];
+		return false;
 	}
 	undo() {
 		if ( this._stackInd > 0 ) {
 			return this._change( this._stack[ --this._stackInd ], "undo", "historyUndo" );
 		}
+		return false;
 	}
 	redo() {
 		if ( this._stackInd < this._stack.length ) {
 			return this._change( this._stack[ this._stackInd++ ], "redo", "historyRedo" );
 		}
+		return false;
 	}
 
 	// private:
