@@ -17,7 +17,7 @@ class DAW {
 		this.patternrollFocused = false;
 		this.compositions = new Map();
 		this.composition = new DAW.Composition( this );
-		this.history = new DAW.History( this.composition );
+		this.history = new DAW.History( this );
 		this.ctx = new AudioContext();
 		this.patternrollFocus();
 	}
