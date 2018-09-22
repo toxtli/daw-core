@@ -44,9 +44,8 @@ DAW.Composition = class {
 		}
 	}
 	change( obj ) {
-		const fn = this.daw.onchangeComposition;
-
-		fn && fn( obj );
+		DAW.deepAssign( this.cmp, obj );
+		this._call( "compositionChanged", obj );
 		return obj;
 	}
 
