@@ -22,6 +22,8 @@ DAW.prototype._newComposition = function() {
 		duration: 0,
 		loopA: false,
 		loopB: false,
+		synthOpened: 0,
+		patternOpened: 0,
 		patterns: {
 			0: {
 				name: "pat",
