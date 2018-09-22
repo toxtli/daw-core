@@ -21,5 +21,6 @@ DAW.prototype._clonePattern = function( patId, pat ) {
 	return {
 		keys: { [ newKeysId ]: newKeys },
 		patterns: { [ newPatId ]: newPat },
+		patternOpened: newPatId,
 	};
 };
