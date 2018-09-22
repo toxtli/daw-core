@@ -28,7 +28,7 @@ DAW.History = class {
 		}
 		++this._stackInd;
 		act.index = stack.push( act );
-		this._change( act, "redo", "historyAddAction" );
+		this.daw._call( "historyAddAction", act );
 	}
 	getCurrentAction() {
 		return this._stack[ this._stackInd - 1 ];
@@ -44,21 +44,19 @@ DAW.History = class {
 		return false;
 	}
 	undo() {
-		if ( this._stackInd > 0 ) {
-			return this._change( this._stack[ --this._stackInd ], "undo", "historyUndo" );
-		}
-		return false;
+		return this._stackInd > 0
+			? this._change( --this._stackInd, "undo", "historyUndo" )
+			: false;
 	}
 	redo() {
-		if ( this._stackInd < this._stack.length ) {
-			return this._change( this._stack[ this._stackInd++ ], "redo", "historyRedo" );
-		}
-		return false;
+		return this._stackInd < this._stack.length
+			? this._change( this._stackInd++, "redo", "historyRedo" )
+			: false;
 	}
 
 	// private:
-	_change( act, undoredo, cbStr ) {
-		const obj = act[ undoredo ];
+	_change( actInd, undoredo, cbStr ) {
+		const obj = this._stack[ actInd ][ undoredo ];
 
 		this.daw._call( cbStr, act );
 		this.daw.composition.change( obj );
