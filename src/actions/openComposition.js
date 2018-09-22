@@ -11,3 +11,8 @@ DAW.prototype.openComposition = function( id ) {
 		return Promise.reject();
 	}
 };
+
+DAW.prototype._compositionOpened = function( cmp ) {
+	this.cmp = cmp;
+	return cmp;
+};
