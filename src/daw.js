@@ -11,16 +11,34 @@ class DAW {
 		};
 		this.cmp =
 		this.cmpId =
+		this.pianoroll =
 		this.synthOpened =
 		this.patternOpened = null;
+		this.patternrollFocused = false;
 		this.compositions = new Map();
 		this.composition = new DAW.Composition( this );
-		this.history = new DAW.History();
+		this.history = new DAW.History( this.composition );
 		this.ctx = new AudioContext();
+		this.patternrollFocus();
 	}
 
 	initPianoroll() {
 		this.pianoroll = new DAW.Pianoroll( this.ctx );
+	}
+	patternrollFocus() {
+		if ( !this.patternrollFocused ) {
+			this.patternrollFocused = true;
+			this._call( "pianorollFocusOut" );
+			this._call( "patternrollFocusIn" );
+		}
+	}
+	pianorollFocus() {
+		lg( this.patternrollFocused, this.pianoroll, this.cmp, this.cmp.patternOpened )
+		if ( this.patternrollFocused && this.pianoroll && this.cmp && this.cmp.patternOpened ) {
+			this.patternrollFocused = false;
+			this._call( "patternrollFocusOut" );
+			this._call( "pianorollFocusIn" );
+		}
 	}
 
 	// private:
