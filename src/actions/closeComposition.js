@@ -2,15 +2,19 @@
 
 DAW.prototype.closeComposition = function() {
 	if ( this.cmp ) {
-		if ( this.composition.needSave ) {
-			const prom = this._call( "askToDiscardComposition", this.cmp );
+		const prom = this.composition.needSave
+				&& this._call( "askToDiscardComposition", this.cmp );
 
-			if ( prom && prom.then ) {
-				prom.then( this.composition.unload );
-			}
+		if ( prom ) {
+			prom.then( () => this._closeComposition() );
 		} else {
-			this.composition.unload();
+			this._closeComposition();
 		}
-		this.cmp = null;
 	}
+};
+
+DAW.prototype._closeComposition = function() {
+	this.composition.unload();
+	this.history.empty();
+	this.cmp = null;
 };
