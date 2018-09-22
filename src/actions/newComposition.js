@@ -3,7 +3,7 @@
 DAW.prototype.newComposition = function() {
 	return this.addComposition( this._newComposition() )
 		.then( cmp => this.composition.load( cmp ) )
-		.then( cmp => this.cmp = cmp );
+		.then( cmp => this._compositionOpened( cmp ) );
 };
 
 DAW.prototype._newComposition = function() {

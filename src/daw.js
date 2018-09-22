@@ -45,4 +45,8 @@ class DAW {
 		return DAW.uniqueName( name, Object.values(
 			this.cmp[ collection ] ).map( obj => obj.name ) );
 	}
+	_compositionOpened( cmp ) {
+		this.cmp = cmp;
+		return cmp;
+	}
 }
