@@ -17,7 +17,6 @@ DAW.prototype._clonePattern = function( patId, pat ) {
 
 	newPat.keys = newKeysId;
 	newPat.name = this._createUniqueName( "patterns", pat.name );
-	this._call( "patternOpened", newPatId, cmp.patternOpened );
 	return {
 		keys: { [ newKeysId ]: newKeys },
 		patterns: { [ newPatId ]: newPat },

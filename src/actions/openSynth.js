@@ -8,17 +8,14 @@ DAW.prototype.openSynth = function( id ) {
 			obj = { synthOpened: id };
 
 		if ( patId !== cmp.patternOpened ) {
-			this._call( "patternOpened", patId, cmp.patternOpened );
 			obj.patternOpened = patId;
 		}
-		this._call( "synthOpened", id, cmp.synthOpened );
 		this.composition.change( obj );
 	}
 };
 
 DAW.prototype._openSynth_find = function( cmp, id ) {
-	const pat = Object.entries( cmp.patterns )
-			.find( ( [ patId, pat ] ) => pat.synth === id );
+	const pat = Object.entries( cmp.patterns ).find( ( [ patId, pat ] ) => pat.synth === id );
 
 	return pat ? pat[ 0 ] : null;
 };
