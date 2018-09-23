@@ -17,25 +17,23 @@ class DAW {
 		this.composition = new DAW.Composition( this );
 		this.history = new DAW.History( this );
 		this.ctx = new AudioContext();
-		this.patternrollFocus();
 	}
 
 	initPianoroll() {
 		this.pianoroll = new DAW.Pianoroll( this.ctx );
 	}
-	patternrollFocus() {
-		if ( !this.patternrollFocused ) {
-			this.patternrollFocused = true;
-			this._call( "pianorollFocusOut" );
-			this._call( "patternrollFocusIn" );
+	compositionFocus() {
+		if ( !this.compositionFocused ) {
+			this.compositionFocused = true;
+			this._call( "focusOn", "pianoroll", false );
+			this._call( "focusOn", "composition", true );
 		}
 	}
 	pianorollFocus() {
-		lg( this.patternrollFocused, this.pianoroll, this.cmp, this.cmp.patternOpened )
-		if ( this.patternrollFocused && this.pianoroll && this.cmp && this.cmp.patternOpened ) {
-			this.patternrollFocused = false;
-			this._call( "patternrollFocusOut" );
-			this._call( "pianorollFocusIn" );
+		if ( this.compositionFocused && this.pianoroll && this.cmp && this.cmp.patternOpened ) {
+			this.compositionFocused = false;
+			this._call( "focusOn", "composition", false );
+			this._call( "focusOn", "pianoroll", true );
 		}
 	}
 
