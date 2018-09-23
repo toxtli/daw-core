@@ -30,7 +30,7 @@ DAW.prototype._removeSynth = function( synthId ) {
 	if ( DAW.objectIsEmpty( keys ) ) {
 		obj.keys = keys;
 		obj.patterns = patterns;
-		if ( DAW.objectIsEmpty( keys ) ) {
+		if ( DAW.objectIsEmpty( blocks ) ) {
 			obj.blocks = blocks;
 		}
 	}
