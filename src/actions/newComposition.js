@@ -22,27 +22,27 @@ DAW.prototype._newComposition = function() {
 		duration: 0,
 		loopA: false,
 		loopB: false,
-		synthOpened: 0,
-		patternOpened: 0,
+		synthOpened: "0",
+		patternOpened: "0",
 		patterns: {
-			0: {
+			"0": {
 				name: "pat",
 				type: "keys",
-				keys: 0,
-				synth: 0,
+				keys: "0",
+				synth: "0",
 				duration: env.def_beatsPerMeasure
 			}
 		},
 		synths: {
-			0: {
+			"0": {
 				name: "synth",
 				oscillators: {
-					0: { order: 0, type: "sine", detune: 0, pan: 0, gain: 1 },
+					"0": { order: 0, type: "sine", detune: 0, pan: 0, gain: 1 },
 				}
 			}
 		},
 		tracks,
 		blocks: {},
-		keys: { 0: {} },
+		keys: { "0": {} },
 	};
 };
