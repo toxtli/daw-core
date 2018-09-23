@@ -5,20 +5,27 @@ DAW.prototype.newSynth = function() {
 };
 
 DAW.prototype._newSynth = function() {
-	return {
-		synths: {
-			[ this._getMaxIdOf( this.cmp.synths ) ]: {
-				name: this._createUniqueName( "synths", "synth" ),
-				oscillators: {
-					"0": {
-						order: 0,
-						type: "sine",
-						detune: 0,
-						pan: 0,
-						gain: 1,
+	const id = this._getMaxIdOf( this.cmp.synths ),
+		obj = {
+			synthOpened: id,
+			synths: {
+				[ id ]: {
+					name: this._createUniqueName( "synths", "synth" ),
+					oscillators: {
+						"0": {
+							order: 0,
+							type: "sine",
+							detune: 0,
+							pan: 0,
+							gain: 1,
+						}
 					}
 				}
 			}
-		}
-	};
+		};
+
+	if ( cmp.patternOpened != null ) {
+		obj.patternOpened = null;
+	}
+	return obj;
 };
