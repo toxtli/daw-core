@@ -5,8 +5,7 @@ DAW.prototype.removeSynth = function( id ) {
 
 	!syn
 		? this._error( "removeSynth", "synths", id )
-		: this.history.stackChange( this.composition.change(
-			this._removeSynth( id ) ) );
+		: this.history.stackChange( this._removeSynth( id ) );
 };
 
 DAW.prototype._removeSynth = function( synthId ) {

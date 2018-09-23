@@ -1,7 +1,7 @@
 "use strict";
 
 DAW.prototype.newSynth = function() {
-	this.history.stackChange( this.composition.change( this._newSynth() ) );
+	this.history.stackChange( this._newSynth() );
 };
 
 DAW.prototype._newSynth = function() {

@@ -5,7 +5,7 @@ DAW.prototype.newPattern = function( synthId ) {
 
 	!syn
 		? this._error( "newPattern", "synths", synthId )
-		: this.history.stackChange( this.composition.change( this._newPattern( synthId ) ) );
+		: this.history.stackChange( this._newPattern( synthId ) );
 };
 
 DAW.prototype._newPattern = function( synthId ) {

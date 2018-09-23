@@ -5,7 +5,5 @@ DAW.prototype.changePatternSynth = function( id, synth ) {
 
 	!pat
 		? this._error( "changePatternSynth", "patterns", id )
-		: this.history.stackChange( this.composition.change( {
-			patterns: { [ id ]: { synth } }
-		} ) );
+		: this.history.stackChange( { patterns: { [ id ]: { synth } } } );
 };
