@@ -22,22 +22,25 @@ class DAW {
 	initPianoroll() {
 		this.pianoroll = new DAW.Pianoroll( this.ctx );
 	}
-	compositionFocus() {
+	compositionFocus( force ) {
 		if ( !this.compositionFocused ) {
-			this.compositionFocused = true;
-			this._call( "focusOn", "pianoroll", false );
-			this._call( "focusOn", "composition", true );
+			this._focusOn( true, force );
 		}
 	}
-	pianorollFocus() {
+	pianorollFocus( force ) {
 		if ( this.compositionFocused && this.pianoroll && this.cmp && this.cmp.patternOpened ) {
-			this.compositionFocused = false;
-			this._call( "focusOn", "composition", false );
-			this._call( "focusOn", "pianoroll", true );
+			this._focusOn( false, force );
 		}
 	}
 
 	// private:
+	_focusOn( cmpFocused, force ) {
+		if ( this.composition.playing !== "playing" || force === "-f" ) {
+			this.compositionFocused = cmpFocused;
+			this._call( "focusOn", "composition", cmpFocused );
+			this._call( "focusOn", "pianoroll", !cmpFocused );
+		}
+	}
 	_call( cbName, a, b, c, d ) {
 		const fn = this.cb[ cbName ];
 
