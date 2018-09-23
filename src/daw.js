@@ -11,10 +11,8 @@ class DAW {
 		};
 		this.cmp =
 		this.cmpId =
-		this.pianoroll =
-		this.synthOpened =
-		this.patternOpened = null;
-		this.patternrollFocused = false;
+		this.pianoroll = null;
+		this.compositionFocused = true;
 		this.compositions = new Map();
 		this.composition = new DAW.Composition( this );
 		this.history = new DAW.History( this );
