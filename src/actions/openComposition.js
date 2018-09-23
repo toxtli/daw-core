@@ -14,5 +14,8 @@ DAW.prototype.openComposition = function( id ) {
 
 DAW.prototype._compositionOpened = function( cmp ) {
 	this.cmp = cmp;
+	this._call( "focusOn", "composition", true );
+	this._call( "synthOpened", cmp.synthOpened, null );
+	this._call( "patternOpened", cmp.patternOpened, null );
 	return cmp;
 };
