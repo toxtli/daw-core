@@ -10,8 +10,8 @@ DAW.prototype.newPattern = function( synthId ) {
 
 DAW.prototype._newPattern = function( synthId ) {
 	const cmp = this.cmp,
-		keysId = this._getMaxIdOf( cmp.keys ),
-		patId = this._getMaxIdOf( cmp.patterns );
+		keysId = this._getNextIdOf( cmp.keys ),
+		patId = this._getNextIdOf( cmp.patterns );
 
 	return {
 		keys: { [ keysId ]: {} },

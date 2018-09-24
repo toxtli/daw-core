@@ -5,7 +5,7 @@ DAW.prototype.newSynth = function() {
 };
 
 DAW.prototype._newSynth = function() {
-	const id = this._getMaxIdOf( this.cmp.synths ),
+	const id = this._getNextIdOf( this.cmp.synths ),
 		obj = {
 			synthOpened: id,
 			synths: {

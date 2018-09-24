@@ -57,9 +57,10 @@ class DAW {
 			? `DAW.${ fnName }: cmp is not defined`
 			: `DAW.${ fnName }: cmp.${ collection }[${ id }] is not defined`;
 	}
-	_getMaxIdOf( obj ) {
-		return Object.keys( obj )
-			.reduce( ( max, k ) => Math.max( max, parseInt( k ) || 0 ), 0 );
+	_getNextIdOf( obj ) {
+		return Object.keys( obj ).reduce( ( max, id ) => (
+			Math.max( max, parseInt( id ) || 0 )
+		), 0 ) + 1 + "";
 	}
 	_createUniqueName( collection, name ) {
 		return DAW.uniqueName( name, Object.values(
