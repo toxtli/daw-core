@@ -6,9 +6,9 @@ DAW.deepAssign = ( a, b ) => {
 
 	Object.entries( b ).forEach( ( [ k, val ] ) => {
 		if ( a[ k ] !== val ) {
-			if ( val == null ) {
+			if ( val === undefined ) {
 				aSealed || delete a[ k ];
-			} else if ( typeof val !== "object" ) {
+			} else if ( typeof val !== "object" || val === null ) {
 				aFrozen || ( a[ k ] = val );
 			} else if ( typeof a[ k ] !== "object" ) {
 				aFrozen || ( a[ k ] = DAW.copyObject( val ) );
