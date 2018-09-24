@@ -22,6 +22,9 @@ class DAW {
 	initPianoroll() {
 		this.pianoroll = new DAW.Pianoroll( this.ctx );
 	}
+	compositionChange( obj ) {
+		this.history.stackChange( obj );
+	}
 	compositionFocus( force ) {
 		if ( !this.compositionFocused ) {
 			this._focusOn( true, force );
