@@ -10,7 +10,7 @@ DAW.prototype.openSynth = function( id ) {
 		if ( patId !== cmp.patternOpened ) {
 			obj.patternOpened = patId;
 		}
-		this.composition.change( obj );
+		this.composition.change( obj, DAW.composeUndo( cmp, obj ) );
 	}
 };
 

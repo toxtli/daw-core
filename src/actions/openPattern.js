@@ -10,6 +10,6 @@ DAW.prototype.openPattern = function( id ) {
 		if ( synId !== cmp.synthOpened ) {
 			obj.synthOpened = synId;
 		}
-		this.composition.change( obj );
+		this.composition.change( obj, DAW.composeUndo( cmp, obj ) );
 	}
 };
