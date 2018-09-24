@@ -57,8 +57,8 @@ DAW.Composition.format = function( cmp ) {
 		keysEntries.sort( sortWhen );
 		keysEntries.forEach( ( [ id, k ] ) => {
 			keysObj[ keyId++ ] = k;
-			k.pan = +castToNumber( -1, 1, 0, k.pan ).toFixed( 2 );
-			k.gain = +castToNumber( 0, 1, .8, k.gain ).toFixed( 2 );
+			k.pan = +DAW.castToNumber( -1, 1, 0, k.pan ).toFixed( 2 );
+			k.gain = +DAW.castToNumber( 0, 1, .8, k.gain ).toFixed( 2 );
 			k.selected = !!k.selected;
 			k.prev = k.prev || false;
 			k.next = k.next || false;
