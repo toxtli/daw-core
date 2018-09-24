@@ -17,7 +17,7 @@ DAW.Composition = class {
 		return new Promise( ( res, rej ) => {
 			const cmp = DAW.copyObject( cmpOri );
 
-			if ( this.format( cmp ) ) {
+			if ( DAW.Composition.format( cmp ) ) {
 				this.unload();
 				res( cmp );
 			} else {

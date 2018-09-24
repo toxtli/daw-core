@@ -1,6 +1,6 @@
 "use strict";
 
-DAW.Composition.prototype.format = function( cmp ) {
+DAW.Composition.format = function( cmp ) {
 	const blcsEntries = Object.entries( cmp.blocks ),
 		blcsObj = {},
 		sortWhen = ( a, b ) => {
@@ -64,10 +64,10 @@ DAW.Composition.prototype.format = function( cmp ) {
 			k.next = k.next || false;
 			delete k.durationEdited;
 			if ( typeof k.key === "string" ) {
-				if ( gsuiKeys ) {
-					k.key = gsuiKeys.keyStrToMidi( k.key );
+				if ( window.gsuiKeys ) {
+					k.key = window.gsuiKeys.keyStrToMidi( k.key );
 				} else {
-					console.warn( "DAW.composition.format: gsuiKeys is needed to convert an old midi notation" );
+					console.warn( "DAW.Composition.format: gsuiKeys is needed to convert an old midi notation" );
 					return false;
 				}
 			}
