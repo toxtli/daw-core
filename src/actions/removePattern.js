@@ -21,7 +21,7 @@ DAW.prototype._removePattern = function( patId, pat ) {
 			return blocks;
 		}, {} );
 
-	if ( DAW.objectIsEmpty( blocks ) ) {
+	if ( !DAW.objectIsEmpty( blocks ) ) {
 		obj.blocks = blocks;
 	}
 	return obj;
