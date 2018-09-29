@@ -6,22 +6,10 @@ DAW.prototype.newSynth = function() {
 
 DAW.prototype._newSynth = function() {
 	const id = this._getNextIdOf( this.cmp.synths ),
+		name = this._createUniqueName( "synths", "synth" ),
 		obj = {
+			synths: { [ id ]: DAW.json.synth( name ) },
 			synthOpened: id,
-			synths: {
-				[ id ]: {
-					name: this._createUniqueName( "synths", "synth" ),
-					oscillators: {
-						"0": {
-							order: 0,
-							type: "sine",
-							detune: 0,
-							pan: 0,
-							gain: 1,
-						}
-					}
-				}
-			}
 		};
 
 	if ( this.cmp.patternOpened != null ) {
