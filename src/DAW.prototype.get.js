@@ -21,9 +21,9 @@ Object.assign( DAW.prototype, {
 		this.get = obj;
 		this._getList = getList;
 		obj.composition = cmp;
-		obj.synthOpened = () => cmp() || cmp().synthOpened;
-		obj.patternOpened = () => cmp() || cmp().patternOpened;
-		obj.beatsPerMeasure = () => cmp() || cmp().beatsPerMeasure;
+		obj.synthOpened = () => cmp() && cmp().synthOpened;
+		obj.patternOpened = () => cmp() && cmp().patternOpened;
+		obj.beatsPerMeasure = () => cmp() && cmp().beatsPerMeasure;
 	},
 	_getListOrObj( listname, id ) {
 		const list = this._getList( listname );
