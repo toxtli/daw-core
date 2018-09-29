@@ -24,5 +24,15 @@ DAW.prototype._removePattern = function( patId, pat ) {
 	if ( !DAW.objectIsEmpty( blocks ) ) {
 		obj.blocks = blocks;
 	}
+	if ( patId === cmp.patternOpened ) {
+		if ( !Object.entries( cmp.patterns ).some( ( [ k, v ] ) => {
+			if ( k !== patId && v.synth === pat.synth ) {
+				obj.patternOpened = k;
+				return true;
+			}
+		} ) ) {
+			obj.patternOpened = null;
+		}
+	}
 	return obj;
 };
