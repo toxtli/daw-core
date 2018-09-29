@@ -1,7 +1,7 @@
 "use strict";
 
 DAW.prototype.removeSynth = function( id ) {
-	const syn = this._getObjFromComposition( "synths", id );
+	const syn = this.get.synth( id );
 
 	!syn
 		? this._error( "removeSynth", "synths", id )
@@ -9,12 +9,11 @@ DAW.prototype.removeSynth = function( id ) {
 };
 
 DAW.prototype._removeSynth = function( synthId ) {
-	const cmp = this.cmp,
-		keys = {},
+	const keys = {},
 		blocks = {},
 		patterns = {},
-		cmpBlocks = Object.entries( cmp.blocks ),
-		cmpPatterns = Object.entries( cmp.patterns ),
+		cmpBlocks = Object.entries( this.get.blocks() ),
+		cmpPatterns = Object.entries( this.get.patterns() ),
 		obj = { synths: { [ synthId ]: undefined } };
 
 	cmpPatterns.forEach( ( [ patId, pat ] ) => {
@@ -35,8 +34,8 @@ DAW.prototype._removeSynth = function( synthId ) {
 			obj.blocks = blocks;
 		}
 	}
-	if ( synthId === cmp.synthOpened ) {
-		if ( !Object.entries( cmp.synths ).some( ( [ k, v ] ) => {
+	if ( synthId === this.get.synthOpened() ) {
+		if ( !Object.entries( this.get.synths() ).some( ( [ k, v ] ) => {
 			if ( k !== synthId ) {
 				obj.synthOpened = k;
 				if ( !cmpPatterns.some( ( [ patId, pat ] ) => {

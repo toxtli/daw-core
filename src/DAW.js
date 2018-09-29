@@ -17,6 +17,7 @@ class DAW {
 		this.composition = new DAW.Composition( this );
 		this.history = new DAW.History( this );
 		this.ctx = new AudioContext();
+		this._getInit();
 	}
 
 	initPianoroll() {
@@ -31,7 +32,7 @@ class DAW {
 		}
 	}
 	pianorollFocus( force ) {
-		if ( this.compositionFocused && this.pianoroll && this.cmp && this.cmp.patternOpened ) {
+		if ( this.compositionFocused && this.pianoroll && this.get.patternOpened() ) {
 			this._focusOn( false, force );
 		}
 	}
@@ -48,9 +49,6 @@ class DAW {
 		const fn = this.cb[ cbName ];
 
 		return fn && fn( a, b, c, d );
-	}
-	_getObjFromComposition( collection, id ) {
-		return this.cmp ? this.cmp[ collection ][ id ] : null;
 	}
 	_error( fnName, collection, id ) {
 		return !this.cmp

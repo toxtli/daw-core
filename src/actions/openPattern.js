@@ -1,15 +1,13 @@
 "use strict";
 
 DAW.prototype.openPattern = function( id ) {
-	const cmp = this.cmp;
-
-	if ( id !== cmp.patternOpened ) {
-		const synId = cmp.patterns[ id ].synth,
+	if ( id !== this.get.patternOpened() ) {
+		const synId = this.get.pattern( id ).synth,
 			obj = { patternOpened: id };
 
-		if ( synId !== cmp.synthOpened ) {
+		if ( synId !== this.get.synthOpened() ) {
 			obj.synthOpened = synId;
 		}
-		this.composition.change( obj, DAW.composeUndo( cmp, obj ) );
+		this.composition.change( obj, DAW.composeUndo( this.get.composition(), obj ) );
 	}
 };

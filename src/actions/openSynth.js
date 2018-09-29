@@ -1,21 +1,20 @@
 "use strict";
 
 DAW.prototype.openSynth = function( id ) {
-	const cmp = this.cmp;
-
-	if ( id !== cmp.synthOpened ) {
-		const patId = this._openSynth_find( cmp, id ),
+	if ( id !== this.get.synthOpened() ) {
+		const patId = this._openSynth_find( id ),
 			obj = { synthOpened: id };
 
-		if ( patId !== cmp.patternOpened ) {
+		if ( patId !== this.get.patternOpened() ) {
 			obj.patternOpened = patId;
 		}
-		this.composition.change( obj, DAW.composeUndo( cmp, obj ) );
+		this.composition.change( obj, DAW.composeUndo( this.get.composition(), obj ) );
 	}
 };
 
-DAW.prototype._openSynth_find = function( cmp, id ) {
-	const pat = Object.entries( cmp.patterns ).find( ( [ patId, pat ] ) => pat.synth === id );
+DAW.prototype._openSynth_find = function( id ) {
+	const pat = Object.entries( this.get.patterns() )
+			.find( ( [ patId, pat ] ) => pat.synth === id );
 
 	return pat ? pat[ 0 ] : null;
 };

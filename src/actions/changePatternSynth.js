@@ -1,7 +1,7 @@
 "use strict";
 
 DAW.prototype.changePatternSynth = function( id, synth ) {
-	const pat = this._getObjFromComposition( "patterns", id );
+	const pat = this.get.pattern( id );
 
 	if ( !pat ) {
 		this._error( "changePatternSynth", "patterns", id );

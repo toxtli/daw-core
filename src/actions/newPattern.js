@@ -1,7 +1,7 @@
 "use strict";
 
 DAW.prototype.newPattern = function( synthId ) {
-	const syn = this._getObjFromComposition( "synths", synthId );
+	const syn = this.get.synth( synthId );
 
 	!syn
 		? this._error( "newPattern", "synths", synthId )
@@ -9,9 +9,8 @@ DAW.prototype.newPattern = function( synthId ) {
 };
 
 DAW.prototype._newPattern = function( synthId ) {
-	const cmp = this.cmp,
-		keysId = this._getNextIdOf( cmp.keys ),
-		patId = this._getNextIdOf( cmp.patterns );
+	const keysId = this._getNextIdOf( this.get.keys() ),
+		patId = this._getNextIdOf( this.get.patterns() );
 
 	return {
 		keys: { [ keysId ]: {} },
@@ -20,7 +19,7 @@ DAW.prototype._newPattern = function( synthId ) {
 			type: "keys",
 			keys: keysId,
 			synth: synthId,
-			duration: cmp.beatsPerMeasure,
+			duration: this.get.beatsPerMeasure(),
 		} },
 		patternOpened: patId,
 	};
