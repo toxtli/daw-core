@@ -24,7 +24,7 @@ DAW.prototype._newSynth = function() {
 			}
 		};
 
-	if ( cmp.patternOpened != null ) {
+	if ( this.cmp.patternOpened != null ) {
 		obj.patternOpened = null;
 	}
 	return obj;
