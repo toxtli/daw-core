@@ -14,9 +14,10 @@ DAW.prototype._removeSynth = function( synthId ) {
 		blocks = {},
 		patterns = {},
 		cmpBlocks = Object.entries( cmp.blocks ),
+		cmpPatterns = Object.entries( cmp.patterns ),
 		obj = { synths: { [ synthId ]: undefined } };
 
-	Object.entries( cmp.patterns ).forEach( ( [ patId, pat ] ) => {
+	cmpPatterns.forEach( ( [ patId, pat ] ) => {
 		if ( pat.synth === synthId ) {
 			keys[ pat.keys ] =
 			patterns[ patId ] = undefined;
@@ -32,6 +33,24 @@ DAW.prototype._removeSynth = function( synthId ) {
 		obj.patterns = patterns;
 		if ( !DAW.objectIsEmpty( blocks ) ) {
 			obj.blocks = blocks;
+		}
+	}
+	if ( synthId === cmp.synthOpened ) {
+		if ( !Object.entries( cmp.synths ).some( ( [ k, v ] ) => {
+			if ( k !== synthId ) {
+				obj.synthOpened = k;
+				if ( !cmpPatterns.some( ( [ patId, pat ] ) => {
+					if ( pat.synth === k ) {
+						obj.patternOpened = patId;
+						return true;
+					}
+				} ) ) {
+					obj.patternOpened = null;
+				}
+				return true;
+			}
+		} ) ) {
+			obj.synthOpened = null;
 		}
 	}
 	return obj;
