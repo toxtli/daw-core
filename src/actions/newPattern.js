@@ -21,6 +21,7 @@ DAW.prototype._newPattern = function( synthId ) {
 			keys: keysId,
 			synth: synthId,
 			duration: cmp.beatsPerMeasure,
-		} }
+		} },
+		patternOpened: patId,
 	};
 };
