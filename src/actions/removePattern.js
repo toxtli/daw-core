@@ -11,12 +11,12 @@ DAW.prototype.removePattern = function( id ) {
 DAW.prototype._removePattern = function( patId, pat ) {
 	const cmp = this.cmp,
 		obj = {
-			keys: { [ pat.keys ]: null },
-			patterns: { [ patId ]: null },
+			keys: { [ pat.keys ]: undefined },
+			patterns: { [ patId ]: undefined },
 		},
 		blocks = Object.entries( cmp.blocks ).reduce( ( blocks, [ blcId, blc ] ) => {
 			if ( blc.pattern === patId ) {
-				blocks[ blcId ] = null;
+				blocks[ blcId ] = undefined;
 			}
 			return blocks;
 		}, {} );
