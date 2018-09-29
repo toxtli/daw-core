@@ -67,3 +67,5 @@ class DAW {
 			this.cmp[ collection ] ).map( obj => obj.name ) );
 	}
 }
+
+DAW.json = {};
