@@ -1,15 +1,16 @@
 "use strict";
 
 DAW.Pianoroll = class {
-	constructor( ctx ) {
+	constructor( daw ) {
 		const waSched = new gswaScheduler(),
 			waSynth = new gswaSynth();
 
+		this.daw = daw;
 		this.keys = {};
 		this.synth = {};
 		this.playing = false;
 		this.currentTime = 0;
-		this._ctx = ctx;
+		this._ctx = daw.ctx;
 		this._waSched = waSched;
 		this._waSynth = waSynth;
 		this._keysStarted = {};

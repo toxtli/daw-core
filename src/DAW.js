@@ -25,7 +25,7 @@ class DAW {
 		this.composition.setCtx( ctx );
 	}
 	initPianoroll() {
-		this.pianoroll = new DAW.Pianoroll( this.ctx );
+		this.pianoroll = new DAW.Pianoroll( this );
 	}
 	compositionChange( obj ) {
 		this.history.stackChange( obj );
