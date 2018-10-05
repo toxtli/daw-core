@@ -13,6 +13,9 @@ DAW.Composition = class {
 
 	// un/load, change, save
 	// ........................................................................
+	setCtx( ctx ) {
+		this.ctx = ctx;
+	}
 	load( cmpOri ) {
 		return new Promise( ( res, rej ) => {
 			const cmp = DAW.copyObject( cmpOri );

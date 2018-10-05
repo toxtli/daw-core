@@ -16,10 +16,14 @@ class DAW {
 		this.compositions = new Map();
 		this.composition = new DAW.Composition( this );
 		this.history = new DAW.History( this );
-		this.ctx = new AudioContext();
 		this._getInit();
+		this.setCtx( new AudioContext() );
 	}
 
+	setCtx( ctx ) {
+		this.ctx = ctx;
+		this.composition.setCtx( ctx );
+	}
 	initPianoroll() {
 		this.pianoroll = new DAW.Pianoroll( this.ctx );
 	}
