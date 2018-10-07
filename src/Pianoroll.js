@@ -8,6 +8,7 @@ DAW.Pianoroll = class {
 		this.daw = daw;
 		this.keys = {};
 		this.synth = {};
+		this.looping =
 		this.playing = false;
 		this.currentTime = 0;
 		this._ctx = daw.ctx;
@@ -20,11 +21,17 @@ DAW.Pianoroll = class {
 		waSched.ondatastop = this._stopKey.bind( this );
 	}
 
-	loadKeys( keys ) {
-		// ...
+	change( patObj, keysObj ) {
+		DAW.objectDeepAssign( this._waSched.data, keysObj );
+		if ( patObj.duration && !this.looping ) {
+			const beatsPM = this.daw.get.beatsPerMeasure(),
+				b = Math.ceil( patObj.duration / beatsPM );
+
+			this._waSched.setLoopBeat( 0, Math.max( 1, b ) * beatsPM );
+		}
 	}
-	loadSynth( syn ) {
-		// ...
+	changeSynth() {
+
 	}
 	empty() {
 		this.stop();
@@ -45,15 +52,23 @@ DAW.Pianoroll = class {
 
 	// controls
 	// ........................................................................
+	getCurrentTime() {
+		return this._waSched.getCurrentOffsetBeat();
+	}
 	setCurrentTime( t ) {
 		this.currentTime = t;
-		this._waSched.setCurrentOffset( t );
-	}
-	setLoop( a, b ) {
-		this._waSched.setLoop( a, b );
+		this._waSched.setCurrentOffsetBeat( t );
 	}
 	setBPM( bpm ) {
 		this._waSched.setBPM( bpm );
+	}
+	setLoop( a, b ) {
+		this.looping = true;
+		this._waSched.setLoop( a, b );
+	}
+	clearLoop() {
+		this.looping = false;
+		this._waSched.setLoop( 0, this.daw.get.beatsPerMeasure() );
 	}
 	liveKeydown( midi ) {
 		if ( !( midi in this._keysStartedLive ) ) {
@@ -67,16 +82,19 @@ DAW.Pianoroll = class {
 			delete this._keysStartedLive[ midi ];
 		}
 	}
+	bpm( bpm ) {
+		this._waSched.setBPM( bpm );
+	}
 	play() {
 		if ( !this.playing ) {
-			this._waSched.start( 0, this.currentTime );
+			this._waSched.startBeat( 0, this.currentTime );
 			this.playing = true;
 		}
 	}
 	pause() {
 		if ( this.playing ) {
 			this.playing = false;
-			this.currentTime = this._waSched.getCurrentOffset();
+			this.currentTime = this.getCurrentTime();
 			this._waSched.stop();
 		}
 	}
