@@ -9,6 +9,10 @@ DAW.time = {
 	beatToSec( beat, bpm ) {
 		return DAW.time._padZero( beat * 60 / bpm % 60 );
 	},
+	beatToMinSec( beat, bpm ) {
+		return DAW.time.beatToMin( beat, bpm ) + ":" +
+			DAW.time.beatToSec( beat, bpm );
+	},
 
 	// beats:
 	beatToBeat( beat ) {
