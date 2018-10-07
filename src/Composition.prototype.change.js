@@ -51,11 +51,11 @@ DAW.Composition.prototype.change.fn = new Map( [
 			}
 		} );
 	} ],
-	[ "keys", function( obj, prevObj ) {
+	[ "keys", function( { keys } ) {
 		const pats = Object.entries( this.cmp.patterns ),
 			patOpened = this.cmp.patternOpened;
 
-		Object.entries( obj ).forEach( ( [ keysId, keysObj ] ) => {
+		Object.entries( keys ).forEach( ( [ keysId, keysObj ] ) => {
 			pats.some( ( [ patId, patObj ] ) => {
 				if ( patObj.keys === keysId ) {
 					this.assignPatternChange( patObj, keysObj );
