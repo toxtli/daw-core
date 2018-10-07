@@ -26,13 +26,14 @@ Object.assign( DAW.prototype, {
 		obj.name = () => cmp() && cmp().name;
 		obj.loopA = () => cmp() && cmp().loopA;
 		obj.loopB = () => cmp() && cmp().loopB;
+		obj.duration = () => cmp() && cmp().duration;
 		obj.synthOpened = () => cmp() && cmp().synthOpened;
 		obj.patternOpened = () => cmp() && cmp().patternOpened;
 		obj.beatsPerMeasure = () => cmp() && cmp().beatsPerMeasure;
 		obj.stepsPerBeat = () => cmp() && cmp().stepsPerBeat;
 		obj.ctx = () => this.ctx;
 		obj.currentTime = () => this.composition.currentTime;
-		obj.destination = () => obj.ctx().destination; //wa.destination.get();
+		obj.destination = () => this.destination.getDestination();
 	},
 	_getListOrObj( listname, id ) {
 		const list = this._getList( listname );
