@@ -14,6 +14,7 @@ DAW.prototype.closeComposition = function() {
 };
 
 DAW.prototype._closeComposition = function() {
+	this._stopLoop();
 	this.composition.unload();
 	this.history.empty();
 };

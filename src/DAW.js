@@ -20,13 +20,16 @@ class DAW {
 		this.compositionFocused = true;
 		this.compositions = new Map();
 		this.composition = new DAW.Composition( this );
+		this.destination = new DAW.Destination( this );
 		this.history = new DAW.History( this );
+		this._loop = this._loop.bind( this );
 		this._getInit();
 		this.setCtx( new AudioContext() );
 	}
 
 	setCtx( ctx ) {
 		this.ctx = ctx;
+		this.destination.setCtx( ctx );
 		this.composition.setCtx( ctx );
 	}
 	initPianoroll() {
@@ -45,10 +48,56 @@ class DAW {
 			this._focusOn( false, force );
 		}
 	}
+	isPlaying() {
+		return this.composition.playing ||
+			( this.pianoroll ? this.pianoroll.playing : false );
+	}
+	togglePlay() {
+		this.isPlaying() ? this.pause() : this.play();
+	}
+	play() {
+		if ( this.compositionFocused ) {
+			this.composition.play();
+		} else {
+			this.pianoroll.play();
+		}
+		this._call( "play", this._focused() );
+	}
+	pause() {
+		this.composition.pause();
+		this.pianoroll && this.pianoroll.pause();
+		this._call( "pause", this._focused() );
+	}
+	stop() {
+		this.composition.stop();
+		this.pianoroll && this.pianoroll.stop();
+		this._call( "stop", this._focused() );
+		this._call( "currentTime", this._focusedObj().currentTime, this._focused() );
+	}
 
 	// private:
+	_startLoop() {
+		this._loop();
+	}
+	_stopLoop() {
+		cancelAnimationFrame( this._frameId );
+	}
+	_loop() {
+		this.destination.analyserFillData();
+		if ( this.isPlaying() ) {
+			this._call( "currentTime", this._focusedObj().getCurrentTime(), this._focused() );
+		}
+		this._frameId = requestAnimationFrame( this._loop );
+	}
+	_focused() {
+		return this.compositionFocused ? "composition" : "pianoroll";
+	}
+	_focusedObj() {
+		return this.compositionFocused ? this.composition : this.pianoroll;
+	}
 	_focusOn( cmpFocused, force ) {
-		if ( this.composition.playing !== "playing" || force === "-f" ) {
+		if ( force === "-f" || !this.isPlaying() ) {
+			this.pause();
 			this.compositionFocused = cmpFocused;
 			this._call( "focusOn", "composition", cmpFocused );
 			this._call( "focusOn", "pianoroll", !cmpFocused );
