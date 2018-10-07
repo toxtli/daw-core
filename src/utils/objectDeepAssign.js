@@ -1,6 +1,6 @@
 "use strict";
 
-DAW.deepAssign = ( a, b ) => {
+DAW.objectDeepAssign = ( a, b ) => {
 	const aFrozen = Object.isFrozen( a ),
 		aSealed = Object.isSealed( a );
 
@@ -11,9 +11,9 @@ DAW.deepAssign = ( a, b ) => {
 			} else if ( typeof val !== "object" || val === null ) {
 				aFrozen || ( a[ k ] = val );
 			} else if ( typeof a[ k ] !== "object" ) {
-				aFrozen || ( a[ k ] = DAW.copyObject( val ) );
+				aFrozen || ( a[ k ] = DAW.objectDeepCopy( val ) );
 			} else {
-				DAW.deepAssign( a[ k ], val );
+				DAW.objectDeepAssign( a[ k ], val );
 			}
 		}
 	} );

@@ -18,7 +18,7 @@ DAW.Composition = class {
 	}
 	load( cmpOri ) {
 		return new Promise( ( res, rej ) => {
-			const cmp = DAW.copyObject( cmpOri );
+			const cmp = DAW.objectDeepCopy( cmpOri );
 
 			if ( DAW.Composition.format( cmp ) ) {
 				this.unload();
