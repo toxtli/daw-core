@@ -3,7 +3,7 @@
 Object.assign( DAW.prototype, {
 	_getInit() {
 		const listnames = [ "synth", "pattern", "block", "track", "keys" ],
-			cmp = () => this.cmp,
+			cmp = () => this.composition.cmp,
 			getList = list => cmp() && cmp()[ list ],
 			getObject = ( list, id ) => cmp() && cmp()[ list ][ id ],
 			obj = listnames.reduce( ( obj, w ) => {
