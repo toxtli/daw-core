@@ -2,18 +2,15 @@
 
 DAW.Pianoroll = class {
 	constructor( daw ) {
-		const waSched = new gswaScheduler(),
-			waSynth = new gswaSynth();
+		const waSched = new gswaScheduler();
 
 		this.daw = daw;
 		this.keys = {};
-		this.synth = {};
 		this.looping =
 		this.playing = false;
 		this.currentTime = 0;
 		this._ctx = daw.ctx;
 		this._waSched = waSched;
-		this._waSynth = waSynth;
 		this._keysStarted = {};
 		this._keysStartedLive = {};
 		waSched.currentTime = () => this._ctx.currentTime;
@@ -30,9 +27,6 @@ DAW.Pianoroll = class {
 			this._waSched.setLoopBeat( 0, Math.max( 1, b ) * beatsPM );
 		}
 	}
-	changeSynth() {
-
-	}
 	empty() {
 		this.stop();
 		if ( this.keys ) {
@@ -43,15 +37,18 @@ DAW.Pianoroll = class {
 	// ........................................................................
 	_startKey( startedId, blc, when, off, dur ) {
 		this._keysStarted[ startedId ] =
-			this._waSynth.startKey( blc.key, when, off, dur, blc.gain, blc.pan );
+			this.getSynth().startKey( blc.key, when, off, dur, blc.gain, blc.pan );
 	}
 	_stopKey( startedId, blc ) {
-		this._waSynth.stopKey( this._keysStarted[ startedId ] );
+		this.getSynth().stopKey( this._keysStarted[ startedId ] );
 		delete this._keysStarted[ startedId ];
 	}
 
 	// controls
 	// ........................................................................
+	getSynth() {
+		return this.daw.composition.getSynthOpened();
+	}
 	getCurrentTime() {
 		return this._waSched.getCurrentOffsetBeat();
 	}
@@ -72,13 +69,13 @@ DAW.Pianoroll = class {
 	}
 	liveKeydown( midi ) {
 		if ( !( midi in this._keysStartedLive ) ) {
-			this._keysStartedLive[ midi ] = this._waSynth.startKey(
+			this._keysStartedLive[ midi ] = this.getSynth().startKey(
 				midi, this._waSched.currentTime(), 0, Infinity, .8, 0 );
 		}
 	}
 	liveKeyup( midi ) {
 		if ( this._keysStartedLive[ midi ] ) {
-			this._waSynth.stopKey( this._keysStartedLive[ midi ] );
+			this.getSynth().stopKey( this._keysStartedLive[ midi ] );
 			delete this._keysStartedLive[ midi ];
 		}
 	}
