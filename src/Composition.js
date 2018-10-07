@@ -73,6 +73,9 @@ DAW.Composition = class {
 
 	// controls
 	// ........................................................................
+	getSynthOpened() {
+		return this._synths.get( this.cmp.synthOpened );
+	}
 	getCurrentTime() {
 		return this._sched.getCurrentOffsetBeat();
 	}
