@@ -20,11 +20,8 @@ DAW.Pianoroll = class {
 
 	change( patObj, keysObj ) {
 		DAW.objectDeepAssign( this._waSched.data, keysObj );
-		if ( patObj.duration && !this.looping ) {
-			const beatsPM = this.daw.get.beatsPerMeasure(),
-				b = Math.ceil( patObj.duration / beatsPM );
-
-			this._waSched.setLoopBeat( 0, Math.max( 1, b ) * beatsPM );
+		if ( "duration" in patObj && !this.looping ) {
+			this._waSched.setLoopBeat( 0, patObj.duration );
 		}
 	}
 	empty() {
