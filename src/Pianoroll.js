@@ -58,11 +58,11 @@ DAW.Pianoroll = class {
 	}
 	setLoop( a, b ) {
 		this.looping = true;
-		this._waSched.setLoop( a, b );
+		this._waSched.setLoopBeat( a, b );
 	}
 	clearLoop() {
 		this.looping = false;
-		this._waSched.setLoop( 0, this.daw.get.beatsPerMeasure() );
+		this._waSched.setLoopBeat( 0, this.daw.get.beatsPerMeasure() );
 	}
 	liveKeydown( midi ) {
 		if ( !( midi in this._keysStartedLive ) ) {
