@@ -3,9 +3,9 @@
 DAW.prototype.removePattern = function( id ) {
 	const pat = this.get.pattern( id );
 
-	!pat
-		? this._error( "removePattern", "patterns", id )
-		: this.history.stackChange( this._removePattern( id, pat ) );
+	pat
+		? this.compositionChange( this._removePattern( id, pat ) )
+		: this._error( "removePattern", "patterns", id );
 };
 
 DAW.prototype._removePattern = function( patId, pat ) {

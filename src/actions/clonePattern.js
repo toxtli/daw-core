@@ -3,9 +3,9 @@
 DAW.prototype.clonePattern = function( id ) {
 	const pat = this.get.pattern( id );
 
-	!pat
-		? this._error( "clonePattern", "patterns", id )
-		: this.history.stackChange( this._clonePattern( id, pat ) );
+	pat
+		? this.compositionChange( this._clonePattern( id, pat ) )
+		: this._error( "clonePattern", "patterns", id );
 };
 
 DAW.prototype._clonePattern = function( patId, pat ) {

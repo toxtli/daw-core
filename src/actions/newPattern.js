@@ -3,9 +3,9 @@
 DAW.prototype.newPattern = function( synthId ) {
 	const syn = this.get.synth( synthId );
 
-	!syn
-		? this._error( "newPattern", "synths", synthId )
-		: this.history.stackChange( this._newPattern( synthId ) );
+	syn
+		? this.compositionChange( this._newPattern( synthId ) )
+		: this._error( "newPattern", "synths", synthId );
 };
 
 DAW.prototype._newPattern = function( synthId ) {
