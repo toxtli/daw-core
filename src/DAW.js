@@ -14,8 +14,6 @@ class DAW {
 			sampleRate: 44100,
 			clockSteps: false,
 		};
-		this.cmp =
-		this.cmpId =
 		this.pianoroll = null;
 		this.compositionFocused = true;
 		this.compositions = new Map();
@@ -109,7 +107,7 @@ class DAW {
 		return fn && fn( a, b, c, d );
 	}
 	_error( fnName, collection, id ) {
-		return !this.cmp
+		return !this.get.composition()
 			? `DAW.${ fnName }: cmp is not defined`
 			: `DAW.${ fnName }: cmp.${ collection }[${ id }] is not defined`;
 	}
@@ -120,7 +118,7 @@ class DAW {
 	}
 	_createUniqueName( collection, name ) {
 		return DAW.uniqueName( name, Object.values(
-			this.cmp[ collection ] ).map( obj => obj.name ) );
+			this.get[ collection ]() ).map( obj => obj.name ) );
 	}
 }
 
