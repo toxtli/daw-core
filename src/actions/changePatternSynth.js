@@ -6,6 +6,11 @@ DAW.prototype.changePatternSynth = function( id, synth ) {
 	if ( !pat ) {
 		this._error( "changePatternSynth", "patterns", id );
 	} else if ( pat.synth !== synth ) {
-		this.compositionChange( { patterns: { [ id ]: { synth } } } );
+		const obj = { patterns: { [ id ]: { synth } } };
+
+		if ( id === this.get.patternOpened() ) {
+			obj.synthOpened = synth;
+		}
+		this.compositionChange( obj );
 	}
 };
