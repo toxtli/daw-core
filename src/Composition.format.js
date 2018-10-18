@@ -1,6 +1,6 @@
 "use strict";
 
-DAW.Composition.format = function( cmp ) {
+DAWCore.Composition.format = function( cmp ) {
 	const blcsEntries = Object.entries( cmp.blocks ),
 		blcsObj = {},
 		sortWhen = ( a, b ) => {
@@ -57,8 +57,8 @@ DAW.Composition.format = function( cmp ) {
 		keysEntries.sort( sortWhen );
 		keysEntries.forEach( ( [ id, k ] ) => {
 			keysObj[ keyId++ ] = k;
-			k.pan = +DAW.castToNumber( -1, 1, 0, k.pan ).toFixed( 2 );
-			k.gain = +DAW.castToNumber( 0, 1, .8, k.gain ).toFixed( 2 );
+			k.pan = +DAWCore.castToNumber( -1, 1, 0, k.pan ).toFixed( 2 );
+			k.gain = +DAWCore.castToNumber( 0, 1, .8, k.gain ).toFixed( 2 );
 			k.selected = !!k.selected;
 			k.prev = k.prev || false;
 			k.next = k.next || false;
@@ -67,7 +67,7 @@ DAW.Composition.format = function( cmp ) {
 				if ( window.gsuiKeys ) {
 					k.key = window.gsuiKeys.keyStrToMidi( k.key );
 				} else {
-					console.warn( "DAW.Composition.format: gsuiKeys is needed to convert an old midi notation" );
+					console.warn( "DAWCore.Composition.format: gsuiKeys is needed to convert an old midi notation" );
 					return false;
 				}
 			}

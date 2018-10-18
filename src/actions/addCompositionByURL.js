@@ -1,6 +1,6 @@
 "use strict";
 
-DAW.prototype.addCompositionByURL = function( url ) {
+DAWCore.prototype.addCompositionByURL = function( url ) {
 	return fetch( url )
 		.then( res => {
 			if ( !res.ok ) {

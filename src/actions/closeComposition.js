@@ -1,6 +1,6 @@
 "use strict";
 
-DAW.prototype.closeComposition = function() {
+DAWCore.prototype.closeComposition = function() {
 	if ( this.composition.cmp ) {
 		const prom = this.composition.needSave
 				&& this._call( "askToDiscardComposition", this.composition.cmp );
@@ -13,7 +13,7 @@ DAW.prototype.closeComposition = function() {
 	}
 };
 
-DAW.prototype._closeComposition = function() {
+DAWCore.prototype._closeComposition = function() {
 	this._stopLoop();
 	this.composition.unload();
 	this.history.empty();

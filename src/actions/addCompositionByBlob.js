@@ -1,6 +1,8 @@
 "use strict";
 
-DAW.prototype.addCompositionByBlob = function( blob ) {
+// a read check is missing somewhere...
+
+DAWCore.prototype.addCompositionByBlob = function( blob ) {
 	return new Promise( ( res, rej ) => {
 		const rd = new FileReader();
 

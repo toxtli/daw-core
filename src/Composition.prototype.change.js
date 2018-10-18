@@ -1,7 +1,7 @@
 "use strict";
 
-DAW.Composition.prototype.change = function( obj, prevObj ) {
-	DAW.objectDeepAssign( this.cmp, obj );
+DAWCore.Composition.prototype.change = function( obj, prevObj ) {
+	DAWCore.objectDeepAssign( this.cmp, obj );
 	this.change.fn.forEach( ( fn, attr ) => {
 		if ( typeof attr === "string" ) {
 			if ( attr in obj ) {
@@ -15,7 +15,7 @@ DAW.Composition.prototype.change = function( obj, prevObj ) {
 	return obj;
 };
 
-DAW.Composition.prototype.change.fn = new Map( [
+DAWCore.Composition.prototype.change.fn = new Map( [
 	[ "bpm", function( { bpm } ) {
 		this._sched.setBPM( bpm );
 		this._synths.forEach( syn => syn.setBPM( bpm ) );
@@ -44,10 +44,10 @@ DAW.Composition.prototype.change.fn = new Map( [
 				syn.setContext( this.daw.get.ctx() );
 				syn.setBPM( this.daw.get.bpm() );
 				syn.connect( this.daw.get.destination() );
-				DAW.objectDeepAssign( syn.data, synthObj );
+				DAWCore.objectDeepAssign( syn.data, synthObj );
 				this._synths.set( id, syn );
 			} else {
-				DAW.objectDeepAssign( this._synths.get( id ).data, synthObj );
+				DAWCore.objectDeepAssign( this._synths.get( id ).data, synthObj );
 			}
 		} );
 	} ],

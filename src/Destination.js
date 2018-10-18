@@ -1,6 +1,6 @@
 "use strict";
 
-DAW.Destination = class {
+DAWCore.Destination = class {
 	constructor( daw ) {
 		this.daw = daw;
 		this.empty();

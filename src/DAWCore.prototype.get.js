@@ -1,6 +1,6 @@
 "use strict";
 
-Object.assign( DAW.prototype, {
+Object.assign( DAWCore.prototype, {
 	_getInit() {
 		const listnames = [ "synth", "pattern", "block", "track", "keys" ],
 			cmp = () => this.composition.cmp,

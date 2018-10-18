@@ -1,6 +1,6 @@
 "use strict";
 
-DAW.Pianoroll = class {
+DAWCore.Pianoroll = class {
 	constructor( daw ) {
 		const waSched = new gswaScheduler();
 
@@ -19,7 +19,7 @@ DAW.Pianoroll = class {
 	}
 
 	change( patObj, keysObj ) {
-		DAW.objectDeepAssign( this._waSched.data, keysObj );
+		DAWCore.objectDeepAssign( this._waSched.data, keysObj );
 		if ( "duration" in patObj && !this.looping ) {
 			this._waSched.setLoopBeat( 0, patObj.duration );
 		}

@@ -1,6 +1,6 @@
 "use strict";
 
-DAW.History = class {
+DAWCore.History = class {
 	constructor( daw ) {
 		this.daw = daw;
 		this._stack = [];
@@ -20,7 +20,7 @@ DAW.History = class {
 		const stack = this._stack,
 			act = {
 				redo: obj,
-				undo: DAW.composeUndo( this.daw.composition.cmp, obj ),
+				undo: DAWCore.composeUndo( this.daw.composition.cmp, obj ),
 			};
 
 		while ( stack.length > this._stackInd ) {

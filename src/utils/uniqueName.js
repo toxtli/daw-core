@@ -1,7 +1,7 @@
 "use strict";
 
-DAW.uniqueName = ( nameOri, arr ) => {
-	const name = DAW.trim2( nameOri );
+DAWCore.uniqueName = ( nameOri, arr ) => {
+	const name = DAWCore.trim2( nameOri );
 
 	if ( arr.indexOf( name ) > -1 ) {
 		const name2 = /-\d+$/.test( name )

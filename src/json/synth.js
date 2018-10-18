@@ -1,6 +1,6 @@
 "use strict";
 
-DAW.json.synth = name => ( {
+DAWCore.json.synth = name => ( {
 	name,
 	oscillators: { "0": {
 		order: 0,

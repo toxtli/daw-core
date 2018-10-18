@@ -1,17 +1,17 @@
 "use strict";
 
-DAW.time = {
+DAWCore.time = {
 
 	// mixtes:
 	beatToMin( beat, bpm ) {
 		return ~~( beat / bpm );
 	},
 	beatToSec( beat, bpm ) {
-		return DAW.time._padZero( beat * 60 / bpm % 60 );
+		return DAWCore.time._padZero( beat * 60 / bpm % 60 );
 	},
 	beatToMinSec( beat, bpm ) {
-		return DAW.time.beatToMin( beat, bpm ) + ":" +
-			DAW.time.beatToSec( beat, bpm );
+		return DAWCore.time.beatToMin( beat, bpm ) + ":" +
+			DAWCore.time.beatToSec( beat, bpm );
 	},
 
 	// beats:
@@ -19,10 +19,10 @@ DAW.time = {
 		return "" + ~~( beat + 1 );
 	},
 	beatToStep( beat, stepsPerBeat ) {
-		return DAW.time._padZero( beat % 1 * stepsPerBeat + 1 );
+		return DAWCore.time._padZero( beat % 1 * stepsPerBeat + 1 );
 	},
 	beatToMStep( beat, stepsPerBeat ) {
-		return DAW.time._getMil( beat % 1 * stepsPerBeat );
+		return DAWCore.time._getMil( beat % 1 * stepsPerBeat );
 	},
 
 	// seconds:
@@ -30,10 +30,10 @@ DAW.time = {
 		return "" + ~~( sec / 60 );
 	},
 	secToSec( sec ) {
-		return DAW.time._padZero( sec % 60 );
+		return DAWCore.time._padZero( sec % 60 );
 	},
 	secToMs( sec ) {
-		return DAW.time._getMil( sec );
+		return DAWCore.time._getMil( sec );
 	},
 
 	// private:

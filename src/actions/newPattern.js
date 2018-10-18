@@ -1,6 +1,6 @@
 "use strict";
 
-DAW.prototype.newPattern = function( synthId ) {
+DAWCore.prototype.newPattern = function( synthId ) {
 	const syn = this.get.synth( synthId );
 
 	syn
@@ -8,7 +8,7 @@ DAW.prototype.newPattern = function( synthId ) {
 		: this._error( "newPattern", "synths", synthId );
 };
 
-DAW.prototype._newPattern = function( synthId ) {
+DAWCore.prototype._newPattern = function( synthId ) {
 	const keysId = this._getNextIdOf( this.get.keys() ),
 		patId = this._getNextIdOf( this.get.patterns() );
 

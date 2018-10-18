@@ -1,6 +1,6 @@
 "use strict";
 
-DAW.prototype.changePatternSynth = function( id, synth ) {
+DAWCore.prototype.changePatternSynth = function( id, synth ) {
 	const pat = this.get.pattern( id );
 
 	if ( !pat ) {

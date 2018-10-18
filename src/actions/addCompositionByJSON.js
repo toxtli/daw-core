@@ -1,6 +1,6 @@
 "use strict";
 
-DAW.prototype.addCompositionByJSON = function( json ) {
+DAWCore.prototype.addCompositionByJSON = function( json ) {
 	return new Promise( ( res, rej ) => {
 		try {
 			const cmp = JSON.parse( json );

@@ -1,6 +1,6 @@
 "use strict";
 
-DAW.prototype.clonePattern = function( id ) {
+DAWCore.prototype.clonePattern = function( id ) {
 	const pat = this.get.pattern( id );
 
 	pat
@@ -8,9 +8,9 @@ DAW.prototype.clonePattern = function( id ) {
 		: this._error( "clonePattern", "patterns", id );
 };
 
-DAW.prototype._clonePattern = function( patId, pat ) {
+DAWCore.prototype._clonePattern = function( patId, pat ) {
 	const newPat = Object.assign( {}, pat ),
-		newKeys = DAW.objectDeepAssign( {}, this.get.keys( pat.keys ) ),
+		newKeys = DAWCore.objectDeepAssign( {}, this.get.keys( pat.keys ) ),
 		newPatId = this._getNextIdOf( this.get.patterns() ),
 		newKeysId = this._getNextIdOf( this.get.keys() );
 

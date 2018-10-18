@@ -1,6 +1,6 @@
 "use strict";
 
-DAW.prototype.removeSynth = function( id ) {
+DAWCore.prototype.removeSynth = function( id ) {
 	const syn = this.get.synth( id );
 
 	syn
@@ -8,7 +8,7 @@ DAW.prototype.removeSynth = function( id ) {
 		: this._error( "removeSynth", "synths", id );
 };
 
-DAW.prototype._removeSynth = function( synthId ) {
+DAWCore.prototype._removeSynth = function( synthId ) {
 	const keys = {},
 		blocks = {},
 		patterns = {},
@@ -27,10 +27,10 @@ DAW.prototype._removeSynth = function( synthId ) {
 			} );
 		}
 	} );
-	if ( !DAW.objectIsEmpty( keys ) ) {
+	if ( !DAWCore.objectIsEmpty( keys ) ) {
 		obj.keys = keys;
 		obj.patterns = patterns;
-		if ( !DAW.objectIsEmpty( blocks ) ) {
+		if ( !DAWCore.objectIsEmpty( blocks ) ) {
 			obj.blocks = blocks;
 		}
 	}

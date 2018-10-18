@@ -1,6 +1,6 @@
 "use strict";
 
-DAW.Composition = class {
+DAWCore.Composition = class {
 	constructor( daw ) {
 		const sch = new gswaScheduler();
 
@@ -31,9 +31,9 @@ DAW.Composition = class {
 	}
 	load( cmpOri ) {
 		return new Promise( ( res, rej ) => {
-			const cmp = DAW.objectDeepCopy( cmpOri );
+			const cmp = DAWCore.objectDeepCopy( cmpOri );
 
-			if ( DAW.Composition.format( cmp ) ) {
+			if ( DAWCore.Composition.format( cmp ) ) {
 				this.unload();
 				res( cmp );
 			} else {
@@ -130,7 +130,7 @@ DAW.Composition = class {
 	assignBlocksChange( data ) {
 		const cmp = this.cmp;
 
-		DAW.objectDeepAssign( this._sched.data, data );
+		DAWCore.objectDeepAssign( this._sched.data, data );
 		if ( cmp.loopA === false ) {
 			this._sched.setLoopBeat( 0, cmp.duration || cmp.beatsPerMeasure );
 		}
@@ -138,7 +138,7 @@ DAW.Composition = class {
 	assignPatternChange( pat, keys ) {
 		this._startedSched.forEach( sch => {
 			if ( sch.pattern === pat ) {
-				DAW.objectDeepAssign( sch.data, keys );
+				DAWCore.objectDeepAssign( sch.data, keys );
 			}
 		} );
 	}

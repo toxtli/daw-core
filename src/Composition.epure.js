@@ -1,6 +1,6 @@
 "use strict";
 
-DAW.Composition.epure = function( cmp ) {
+DAWCore.Composition.epure = function( cmp ) {
 	Object.values( cmp.tracks ).forEach( tr => {
 		if ( !tr.name ) { delete tr.name; }
 		if ( tr.toggle ) { delete tr.toggle; }

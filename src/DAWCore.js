@@ -1,6 +1,6 @@
 "use strict";
 
-class DAW {
+class DAWCore {
 	constructor() {
 		this.cb = {};
 		this.env = {
@@ -17,9 +17,9 @@ class DAW {
 		this.pianoroll = null;
 		this.compositionFocused = true;
 		this.compositions = new Map();
-		this.composition = new DAW.Composition( this );
-		this.destination = new DAW.Destination( this );
-		this.history = new DAW.History( this );
+		this.composition = new DAWCore.Composition( this );
+		this.destination = new DAWCore.Destination( this );
+		this.history = new DAWCore.History( this );
 		this._loop = this._loop.bind( this );
 		this._getInit();
 		this.setCtx( new AudioContext() );
@@ -31,10 +31,14 @@ class DAW {
 		this.composition.setCtx( ctx );
 	}
 	initPianoroll() {
-		this.pianoroll = new DAW.Pianoroll( this );
+		this.pianoroll = new DAWCore.Pianoroll( this );
 	}
 	compositionChange( obj ) {
 		this.history.stackChange( obj );
+	}
+	compositionNeedSave() {
+		return this.composition.cmp.savedAt ||
+			this.history._stack.length;
 	}
 	compositionFocus( force ) {
 		if ( !this.compositionFocused ) {
@@ -108,8 +112,8 @@ class DAW {
 	}
 	_error( fnName, collection, id ) {
 		return !this.get.composition()
-			? `DAW.${ fnName }: cmp is not defined`
-			: `DAW.${ fnName }: cmp.${ collection }[${ id }] is not defined`;
+			? `DAWCore.${ fnName }: cmp is not defined`
+			: `DAWCore.${ fnName }: cmp.${ collection }[${ id }] is not defined`;
 	}
 	_getNextIdOf( obj ) {
 		return Object.keys( obj ).reduce( ( max, id ) => (
@@ -117,9 +121,9 @@ class DAW {
 		), 0 ) + 1 + "";
 	}
 	_createUniqueName( collection, name ) {
-		return DAW.uniqueName( name, Object.values(
+		return DAWCore.uniqueName( name, Object.values(
 			this.get[ collection ]() ).map( obj => obj.name ) );
 	}
 }
 
-DAW.json = {};
+DAWCore.json = {};

@@ -1,6 +1,6 @@
 "use strict";
 
-DAW.json.composition = ( env, id ) => {
+DAWCore.json.composition = ( env, id ) => {
 	const tracks = {};
 
 	for ( let i = 0; i < env.def_nbTracks; ++i ) {
@@ -28,7 +28,7 @@ DAW.json.composition = ( env, id ) => {
 		},
 		tracks,
 		blocks: {},
-		synths: { "0": DAW.json.synth( "synth" ) },
+		synths: { "0": DAWCore.json.synth( "synth" ) },
 		keys: { "0": {} },
 	};
 };
