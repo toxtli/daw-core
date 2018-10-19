@@ -1,10 +1,7 @@
 "use strict";
 
 DAWCore.prototype.exportCompositionToJSON = function( id ) {
-	const currId = this.get.id(),
-		cmp = id === currId
-			? this.get.composition()
-			: this.compositions.get( id );
+	const cmp = this.get.composition( id );
 
 	if ( cmp ) {
 		return {

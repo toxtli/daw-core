@@ -20,7 +20,11 @@ Object.assign( DAWCore.prototype, {
 
 		this.get = obj;
 		this._getList = getList;
-		obj.composition = cmp;
+		obj.composition = id => (
+			!id || id === obj.id()
+				? cmp()
+				: this.compositions.get( id )
+		);
 		obj.id = () => cmp() && cmp().id;
 		obj.bpm = () => cmp() && cmp().bpm;
 		obj.name = () => cmp() && cmp().name;
