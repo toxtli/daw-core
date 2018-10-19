@@ -98,6 +98,7 @@ DAWCore.Composition = class {
 	stop() {
 		if ( this.playing ) {
 			this.pause();
+			this.currentTime = this.cmp.loopA || 0;
 		} else {
 			this.currentTime = 0;
 		}
