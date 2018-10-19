@@ -8,6 +8,8 @@ DAWCore.Pianoroll = class {
 		this.keys = {};
 		this.looping =
 		this.playing = false;
+		this.loopA =
+		this.loopB = null;
 		this.currentTime = 0;
 		this._ctx = daw.ctx;
 		this._waSched = waSched;
@@ -57,10 +59,14 @@ DAWCore.Pianoroll = class {
 		this._waSched.setBPM( bpm );
 	}
 	setLoop( a, b ) {
+		this.loopA = a;
+		this.loopB = b;
 		this.looping = true;
 		this._waSched.setLoopBeat( a, b );
 	}
 	clearLoop() {
+		this.loopA =
+		this.loopB = null;
 		this.looping = false;
 		this._waSched.setLoopBeat( 0, this.daw.get.beatsPerMeasure() );
 	}
@@ -95,6 +101,7 @@ DAWCore.Pianoroll = class {
 	stop() {
 		if ( this.playing ) {
 			this.pause();
+			this.currentTime = this.loopA || 0;
 		} else {
 			this.currentTime = 0;
 		}
