@@ -10,6 +10,7 @@ DAWCore.Pianoroll = class {
 		this.playing = false;
 		this.loopA =
 		this.loopB = null;
+		this.duration = 0;
 		this.currentTime = 0;
 		this._ctx = daw.ctx;
 		this._waSched = waSched;
@@ -23,7 +24,8 @@ DAWCore.Pianoroll = class {
 	change( patObj, keysObj ) {
 		DAWCore.objectDeepAssign( this._waSched.data, keysObj );
 		if ( "duration" in patObj && !this.looping ) {
-			this._waSched.setLoopBeat( 0, patObj.duration );
+			this.duration = patObj.duration;
+			this._waSched.setLoopBeat( 0, this.duration );
 		}
 	}
 	empty() {
@@ -68,7 +70,7 @@ DAWCore.Pianoroll = class {
 		this.loopA =
 		this.loopB = null;
 		this.looping = false;
-		this._waSched.setLoopBeat( 0, this.daw.get.beatsPerMeasure() );
+		this._waSched.setLoopBeat( 0, this.duration || this.daw.get.beatsPerMeasure() );
 	}
 	liveKeydown( midi ) {
 		if ( !( midi in this._keysStartedLive ) ) {
