@@ -9,7 +9,7 @@ DAWCore.prototype.closeComposition = function() {
 		this.composition.unload();
 		this.history.empty();
 		if ( !cmp.savedAt ) {
-			this.deleteComposition( cmp );
+			this._deleteComposition( cmp.id );
 		}
 	}
 };
