@@ -4,6 +4,9 @@ DAWCore.prototype.openComposition = function( id ) {
 	const cmp = this.compositions.get( id );
 
 	if ( cmp ) {
+		if ( this.composition.loaded ) {
+			this.closeComposition();
+		}
 		return this.composition.load( cmp )
 			.then( cmp => this._compositionOpened( cmp ) );
 	}

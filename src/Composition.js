@@ -59,9 +59,8 @@ DAWCore.Composition = class {
 			this.loaded =
 			this.needSave = false;
 			Object.keys( d ).forEach( id => delete d[ id ] );
-			this.daw._call( "compositionClosed", this.cmp );
-			this.cmp = null;
 			this._synths.clear();
+			this.cmp = null;
 		}
 	}
 	save() {

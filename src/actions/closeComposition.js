@@ -1,20 +1,15 @@
 "use strict";
 
 DAWCore.prototype.closeComposition = function() {
-	if ( this.composition.cmp ) {
-		const prom = this.composition.needSave
-				&& this._call( "askToDiscardComposition", this.composition.cmp );
+	if ( this.composition.loaded ) {
+		const cmp = this.get.composition();
 
-		if ( prom ) {
-			prom.then( () => this._closeComposition() );
-		} else {
-			this._closeComposition();
+		this._stopLoop();
+		this._call( "compositionClosed", cmp );
+		this.composition.unload();
+		this.history.empty();
+		if ( !cmp.savedAt ) {
+			this.deleteComposition( cmp );
 		}
 	}
-};
-
-DAWCore.prototype._closeComposition = function() {
-	this._stopLoop();
-	this.composition.unload();
-	this.history.empty();
 };
