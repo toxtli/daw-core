@@ -64,23 +64,19 @@ class DAWCore {
 		this.isPlaying() ? this.pause() : this.play();
 	}
 	play() {
-		if ( this.compositionFocused ) {
-			this.composition.play();
-		} else {
-			this.pianoroll.play();
-		}
+		this._focusedObj().play();
 		this._call( "play", this._focused() );
 	}
 	pause() {
-		this.composition.pause();
-		this.pianoroll && this.pianoroll.pause();
+		this._focusedObj().pause();
 		this._call( "pause", this._focused() );
 	}
 	stop() {
-		this.composition.stop();
-		this.pianoroll && this.pianoroll.stop();
+		const obj = this._focusedObj();
+
+		obj.stop();
 		this._call( "stop", this._focused() );
-		this._call( "currentTime", this._focusedObj().currentTime, this._focused() );
+		this._call( "currentTime", obj.getCurrentTime(), this._focused() );
 	}
 
 	// private:
