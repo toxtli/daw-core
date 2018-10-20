@@ -33,6 +33,12 @@ class DAWCore {
 	initPianoroll() {
 		this.pianoroll = new DAWCore.Pianoroll( this );
 	}
+	envChange( obj ) {
+		Object.assign( this.env, obj );
+		if ( "clockSteps" in obj ) {
+			this._clockUpdate();
+		}
+	}
 	compositionChange( obj ) {
 		this.history.stackChange( obj );
 	}
