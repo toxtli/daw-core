@@ -70,6 +70,7 @@ class DAWCore {
 	pause() {
 		this._focusedObj().pause();
 		this._call( "pause", this._focused() );
+		this._clockUpdate();
 	}
 	stop() {
 		const obj = this._focusedObj();
@@ -77,10 +78,12 @@ class DAWCore {
 		obj.stop();
 		this._call( "stop", this._focused() );
 		this._call( "currentTime", obj.getCurrentTime(), this._focused() );
+		this._clockUpdate();
 	}
 
 	// private:
 	_startLoop() {
+		this._clockUpdate();
 		this._loop();
 	}
 	_stopLoop() {
@@ -89,9 +92,32 @@ class DAWCore {
 	_loop() {
 		this.destination.analyserFillData();
 		if ( this.isPlaying() ) {
-			this._call( "currentTime", this._focusedObj().getCurrentTime(), this._focused() );
+			const beat = this._focusedObj().getCurrentTime();
+
+			this._call( "currentTime", beat, this._focused() );
+			this._clockUpdate();
 		}
 		this._frameId = requestAnimationFrame( this._loop );
+	}
+	_clockUpdate() {
+		const t = DAWCore.time,
+			beat = this._focusedObj().getCurrentTime();
+
+		if ( this.env.clockSteps ) {
+			const sPB = this.get.stepsPerBeat();
+
+			this._call( "clockUpdate",
+				t.beatToBeat( beat ),
+				t.beatToStep( beat, sPB ),
+				t.beatToMStep( beat, sPB ) );
+		} else {
+			const sec = beat * 60 / this.get.bpm();
+
+			this._call( "clockUpdate",
+				t.secToMin( sec ),
+				t.secToSec( sec ),
+				t.secToMs( sec ) );
+		}
 	}
 	_focused() {
 		return this.compositionFocused ? "composition" : "pianoroll";
@@ -105,6 +131,7 @@ class DAWCore {
 			this.compositionFocused = cmpFocused;
 			this._call( "focusOn", "composition", cmpFocused );
 			this._call( "focusOn", "pianoroll", !cmpFocused );
+			this._clockUpdate();
 		}
 	}
 	_call( cbName, a, b, c, d ) {
