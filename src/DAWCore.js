@@ -3,7 +3,7 @@
 class DAWCore {
 	constructor() {
 		this.cb = {};
-		this.env = {
+		this.env = Object.seal( {
 			def_bpm: 120,
 			def_appGain: .5,
 			def_nbTracks: 21,
@@ -13,7 +13,7 @@ class DAWCore {
 			analyserEnable: true,
 			sampleRate: 44100,
 			clockSteps: false,
-		};
+		} );
 		this.pianoroll = null;
 		this.compositionFocused = true;
 		this.compositions = new Map();
