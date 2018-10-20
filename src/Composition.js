@@ -9,7 +9,6 @@ DAWCore.Composition = class {
 		this.loaded =
 		this.playing =
 		this.needSave = false;
-		this.currentTime = 0;
 		this._sched = sch;
 		this._synths = new Map();
 		this._startedSched = new Map();
@@ -79,28 +78,26 @@ DAWCore.Composition = class {
 		return this._sched.getCurrentOffsetBeat();
 	}
 	setCurrentTime( t ) {
-		this.currentTime = t;
 		this._sched.setCurrentOffsetBeat( t );
 	}
 	play() {
 		if ( !this.playing ) {
 			this.playing = true;
-			this._start( this.currentTime );
+			this._start( this.getCurrentTime() );
 		}
 	}
 	pause() {
 		if ( this.playing ) {
 			this.playing = false;
-			this.currentTime = this.getCurrentTime();
 			this._sched.stop();
 		}
 	}
 	stop() {
 		if ( this.playing ) {
 			this.pause();
-			this.currentTime = this.cmp.loopA || 0;
+			this.setCurrentTime( this.cmp.loopA || 0 );
 		} else {
-			this.currentTime = 0;
+			this.setCurrentTime( 0 );
 		}
 	}
 
