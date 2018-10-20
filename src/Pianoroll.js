@@ -11,7 +11,6 @@ DAWCore.Pianoroll = class {
 		this.loopA =
 		this.loopB = null;
 		this.duration = 0;
-		this.currentTime = 0;
 		this._ctx = daw.ctx;
 		this._waSched = waSched;
 		this._keysStarted = {};
@@ -54,7 +53,6 @@ DAWCore.Pianoroll = class {
 		return this._waSched.getCurrentOffsetBeat();
 	}
 	setCurrentTime( t ) {
-		this.currentTime = t;
 		this._waSched.setCurrentOffsetBeat( t );
 	}
 	setBPM( bpm ) {
@@ -89,23 +87,22 @@ DAWCore.Pianoroll = class {
 	}
 	play() {
 		if ( !this.playing ) {
-			this._waSched.startBeat( 0, this.currentTime );
 			this.playing = true;
+			this._waSched.startBeat( 0, this.getCurrentTime() );
 		}
 	}
 	pause() {
 		if ( this.playing ) {
 			this.playing = false;
-			this.currentTime = this.getCurrentTime();
 			this._waSched.stop();
 		}
 	}
 	stop() {
 		if ( this.playing ) {
 			this.pause();
-			this.currentTime = this.loopA || 0;
+			this.setCurrentTime( this.loopA || 0 );
 		} else {
-			this.currentTime = 0;
+			this.setCurrentTime( 0 );
 		}
 	}
 };
