@@ -8,6 +8,7 @@ DAWCore.Pianoroll = class {
 		this.keys = {};
 		this.looping =
 		this.playing = false;
+		this._synth =
 		this.loopA =
 		this.loopB = null;
 		this.duration = 0;
@@ -27,28 +28,43 @@ DAWCore.Pianoroll = class {
 			this._waSched.setLoopBeat( 0, this.duration );
 		}
 	}
-	empty() {
-		this.stop();
-		if ( this.keys ) {
-			// ...
+	openPattern( id ) {
+		const daw = this.daw,
+			wasPlaying = this.playing;
+
+		id
+			? daw.pianorollFocus()
+			: daw.compositionFocus( "-f" );
+		if ( wasPlaying ) {
+			daw.stop();
+			daw.stop();
+		}
+		this._waSched.empty();
+		if ( id ) {
+			const pat = daw.get.pattern( id );
+
+			this._synth = daw.composition.getSynth( pat.synth );
+			this.change( pat, daw.get.keys( pat.keys ) );
+			if ( wasPlaying ) {
+				daw.play();
+			}
+		} else {
+			this._synth = null;
 		}
 	}
 
 	// ........................................................................
 	_startKey( startedId, blc, when, off, dur ) {
 		this._keysStarted[ startedId ] =
-			this.getSynth().startKey( blc.key, when, off, dur, blc.gain, blc.pan );
+			this._synth.startKey( blc.key, when, off, dur, blc.gain, blc.pan );
 	}
 	_stopKey( startedId, blc ) {
-		this.getSynth().stopKey( this._keysStarted[ startedId ] );
+		this._synth.stopKey( this._keysStarted[ startedId ] );
 		delete this._keysStarted[ startedId ];
 	}
 
 	// controls
 	// ........................................................................
-	getSynth() {
-		return this.daw.composition.getSynthOpened();
-	}
 	getCurrentTime() {
 		return this._waSched.getCurrentOffsetBeat();
 	}
@@ -72,13 +88,13 @@ DAWCore.Pianoroll = class {
 	}
 	liveKeydown( midi ) {
 		if ( !( midi in this._keysStartedLive ) ) {
-			this._keysStartedLive[ midi ] = this.getSynth().startKey(
+			this._keysStartedLive[ midi ] = this._synth.startKey(
 				midi, this._waSched.currentTime(), 0, Infinity, .8, 0 );
 		}
 	}
 	liveKeyup( midi ) {
 		if ( this._keysStartedLive[ midi ] ) {
-			this.getSynth().stopKey( this._keysStartedLive[ midi ] );
+			this._synth.stopKey( this._keysStartedLive[ midi ] );
 			delete this._keysStartedLive[ midi ];
 		}
 	}

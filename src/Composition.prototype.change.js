@@ -68,8 +68,6 @@ DAWCore.Composition.prototype.change.fn = new Map( [
 		} );
 	} ],
 	[ "patternOpened", function( { patternOpened } ) {
-		if ( !patternOpened ) {
-			this.daw.compositionFocus( "-f" );
-		}
+		this.daw.pianoroll.openPattern( patternOpened );
 	} ],
 ] );

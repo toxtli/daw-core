@@ -71,8 +71,8 @@ DAWCore.Composition = class {
 
 	// controls
 	// ........................................................................
-	getSynthOpened() {
-		return this._synths.get( this.cmp.synthOpened );
+	getSynth( id ) {
+		return this._synths.get( id );
 	}
 	getCurrentTime() {
 		return this._sched.getCurrentOffsetBeat();

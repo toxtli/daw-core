@@ -10,7 +10,6 @@ DAWCore.prototype.changePatternKeys = function( patId, keysObj ) {
 		const dur = this._changePatternKeysCalcDuration( pat, keys, keysObj ),
 			obj = this._changePatternKeys( patId, keysObj, pat, dur );
 
-			lg(obj, pat, this.get.duration())
 		this.compositionChange( obj );
 	}
 };
