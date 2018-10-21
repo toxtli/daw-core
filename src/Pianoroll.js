@@ -23,17 +23,18 @@ DAWCore.Pianoroll = class {
 
 	change( patObj, keysObj ) {
 		DAWCore.objectDeepAssign( this._waSched.data, keysObj );
-		if ( "duration" in patObj && !this.looping ) {
+		if ( "duration" in patObj ) {
 			this.duration = patObj.duration;
-			this._waSched.setLoopBeat( 0, this.duration );
+			if ( !this.looping && this.playing ) {
+				this._waSched.setLoopBeat( 0, this.duration );
+			}
 		}
 	}
 	openPattern( id ) {
 		const daw = this.daw,
 			wasPlaying = this.playing;
 
-		id
-			? daw.pianorollFocus()
+		id ? daw.pianorollFocus()
 			: daw.compositionFocus( "-f" );
 		if ( wasPlaying ) {
 			daw.stop();
@@ -103,7 +104,11 @@ DAWCore.Pianoroll = class {
 	}
 	play() {
 		if ( !this.playing ) {
+			const a = this.looping ? this.loopA : 0,
+				b = this.looping ? this.loopB : this.duration;
+
 			this.playing = true;
+			this._waSched.setLoopBeat( a, b );
 			this._waSched.startBeat( 0, this.getCurrentTime() );
 		}
 	}
