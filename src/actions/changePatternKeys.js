@@ -16,7 +16,7 @@ DAWCore.prototype.changePatternKeys = function( patId, keysObj ) {
 
 DAWCore.prototype._changePatternKeysCalcDuration = function( pat, keys, keysObj ) {
 	const bPM = this.get.beatsPerMeasure(),
-		realDur = Object.entries( keys ).reduce( ( dur, [ keyId, key ] ) => {
+		dur = Object.entries( keys ).reduce( ( dur, [ keyId, key ] ) => {
 			if ( keyId in keysObj ) {
 				const keyObj = keysObj[ keyId ];
 
@@ -30,9 +30,14 @@ DAWCore.prototype._changePatternKeysCalcDuration = function( pat, keys, keysObj 
 				return Math.max( dur, key.when + key.duration );
 			}
 			return dur;
-		}, 0 );
+		}, 0 ),
+		dur2 = Object.entries( keysObj ).reduce( ( dur, [ keyId, key ] ) => (
+			keyId in keys
+				? dur
+				: Math.max( dur, key.when + key.duration )
+		), dur );
 
-	return Math.max( 1, Math.ceil( realDur / bPM ) ) * bPM;
+	return Math.max( 1, Math.ceil( dur2 / bPM ) ) * bPM;
 };
 
 DAWCore.prototype._changePatternKeys = function( patId, keysObj, pat, duration ) {
