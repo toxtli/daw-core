@@ -21,8 +21,11 @@ DAWCore.History = class {
 			act = {
 				redo: obj,
 				undo: DAWCore.composeUndo( this.daw.composition.cmp, obj ),
-			};
+			},
+			desc = this.nameAction( act );
 
+		act.desc = desc.t;
+		act.icon = desc.i;
 		while ( stack.length > this._stackInd ) {
 			this.daw._call( "historyDeleteAction", stack.pop() );
 		}
