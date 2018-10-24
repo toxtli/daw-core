@@ -7,12 +7,13 @@ DAWCore.Composition = class {
 		this.daw = daw;
 		this.cmp = null;
 		this.loaded =
-		this.playing =
-		this.needSave = false;
+		this.playing = false;
+		this._saved = true;
 		this._sched = sch;
 		this._synths = new Map();
 		this._startedSched = new Map();
 		this._startedKeys = new Map();
+		this._actionSavedOn = null;
 		sch.currentTime = () => this.ctx.currentTime;
 		sch.ondatastart = this._onstartBlock.bind( this );
 		sch.ondatastop = this._onstopBlock.bind( this );
@@ -41,13 +42,14 @@ DAWCore.Composition = class {
 		} ).then( cmp => {
 			this.cmp = cmp;
 			this.loaded = true;
-			this.needSave = false;
 			this.change( cmp, {
 				keys: {},
 				synths: {},
 				patterns: {},
 				blocks: {},
 			} );
+			this._saved = true;
+			this.daw._call( "compositionSaved", cmp, true );
 			return cmp;
 		} );
 	}
@@ -55,16 +57,22 @@ DAWCore.Composition = class {
 		if ( this.loaded ) {
 			const d = this._sched.data;
 
-			this.loaded =
-			this.needSave = false;
+			this.loaded = false;
 			Object.keys( d ).forEach( id => delete d[ id ] );
 			this._synths.clear();
+			this._saved = true;
+			this.daw._call( "compositionSaved", this.cmp, true );
 			this.cmp = null;
 		}
 	}
 	save() {
-		if ( this.cmp && this.needSave ) {
-			this.needSave = false;
+		const act = this.daw.history.getCurrentAction();
+
+		if ( act !== this._actionSavedOn ) {
+			this._saved = true;
+			this._actionSavedOn = act;
+			this.cmp.savedAt = Math.floor( Date.now() / 1000 );
+			this.daw._call( "compositionSaved", this.cmp, true );
 			return true;
 		}
 	}

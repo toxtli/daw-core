@@ -1,6 +1,9 @@
 "use strict";
 
 DAWCore.Composition.prototype.change = function( obj, prevObj ) {
+	const act = this.daw.history.getCurrentAction(),
+		saved = act === this._actionSavedOn;
+
 	DAWCore.objectDeepAssign( this.cmp, obj );
 	this.change.fn.forEach( ( fn, attr ) => {
 		if ( typeof attr === "string" ) {
@@ -11,6 +14,11 @@ DAWCore.Composition.prototype.change = function( obj, prevObj ) {
 			fn.call( this, obj, prevObj );
 		}
 	} );
+
+	if ( saved !== this._saved ) {
+		this._saved = saved;
+		this.daw._call( "compositionSaved", this.cmp, saved );
+	}
 	this.daw._call( "compositionChanged", obj, prevObj );
 	return obj;
 };
