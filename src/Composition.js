@@ -58,6 +58,7 @@ DAWCore.Composition = class {
 			const d = this._sched.data;
 
 			this.loaded = false;
+			this._sched.stop();
 			Object.keys( d ).forEach( id => delete d[ id ] );
 			this._synths.clear();
 			this._saved = true;
