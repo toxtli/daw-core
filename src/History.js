@@ -34,7 +34,7 @@ DAWCore.History = class {
 		this._change( act, "redo", "historyAddAction" );
 	}
 	getCurrentAction() {
-		return this._stack[ this._stackInd - 1 ];
+		return this._stack[ this._stackInd - 1 ] || null;
 	}
 	goToAction( act ) {
 		let n = act.index - this._stackInd;
