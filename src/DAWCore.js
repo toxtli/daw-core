@@ -43,12 +43,7 @@ class DAWCore {
 		this.history.stackChange( obj );
 	}
 	compositionNeedSave() {
-		const cmp = this.get.composition();
-
-		return cmp && (
-			cmp.savedAt ||
-			this.history._stack.length
-		);
+		return !this.composition._saved;
 	}
 	compositionFocus( force ) {
 		if ( !this.compositionFocused ) {
